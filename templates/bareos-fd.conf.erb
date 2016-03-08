@@ -1,0 +1,54 @@
+#
+# Default  Bareos File Daemon Configuration file
+#
+#  For Bareos release 14.2.1 (12 September 2014) -- debian Debian GNU/Linux 8.1 (jessie)
+#
+# There is not much to change here except perhaps the
+# File daemon Name to
+#
+
+#
+# List Directors who are permitted to contact this File daemon
+#
+Director {
+  Name = <%= @director_name %>
+  Password = "<%= @director_password %>"
+}
+
+<%- if (@monitor_name && @monitor_password) -%>
+#
+# Restricted Director, used by tray-monitor to get the
+#   status of the file daemon
+#
+Director {
+  Name = <%= @monitor_name %>
+  Password = "<%= @monitor_password %>"
+  Monitor = yes
+}
+<%- end -%>
+
+#
+# "Global" File daemon configuration specifications
+#
+FileDaemon {                          # this is me
+  Name = <%= @daemon_name %>
+  Maximum Concurrent Jobs = 20
+
+  # remove comment from "Plugin Directory" to load plugins from specified directory.
+  # if "Plugin Names" is defined, only the specified plugins will be loaded,
+  # otherwise all storage plugins (*-fd.so) from the "Plugin Directory".
+  #
+  # Plugin Directory = /usr/lib/bareos/plugins
+  # Plugin Names = ""
+
+  # if compatible is set to yes, we are compatible with bacula
+  # if you want to use new bareos features, please set
+  # compatible = no
+}
+
+# Send all messages except skipped files back to Director
+Messages {
+  Name = Standard
+  director = <%= @director_name %> = all, !skipped, !restored
+}
+

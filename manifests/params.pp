@@ -9,5 +9,7 @@ class bareos::params {
     $package_db_mysql   = 'bareos-database-mysql'
     $package_db_pgsql   = 'bareos-database-mysql'
     $package_db_sqlite  = 'bareos-database-mysql'
+    
+    $filedaemon_conf = '/etc/bareos/bareos-fd.conf'
 
 }
