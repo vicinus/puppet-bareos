@@ -1,0 +1,13 @@
+Client {
+  Name = <%= @daemon_name %>
+  Address = <%= @address %>
+  Password = "<%= @password %>"
+  <%- if (@file_retention) -%>
+  File Retention = <%= @file_retention %>
+  <%- end -%>
+  <%- if (@job_retention) -%>
+  Job Retention = <%= @job_retention %>
+  <%- end -%>
+  AutoPrune = <%= @auto_prune ? 'yes' : 'no' %>
+}
+

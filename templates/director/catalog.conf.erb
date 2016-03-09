@@ -1,0 +1,50 @@
+Catalog {
+  Name = <%= @catalog_name %>
+  DB Driver = <%= @db_driver %>
+  DB Name = <%= @db_name %>
+  <%- if defined? @db_address -%>
+  DB Address = <%= @db_address %>
+  <%- end -%>
+  <%- if defined? @db_port -%>
+  DB Port = <%= @db_port %>
+  <%- end -%>
+  <%- if defined? @db_socket -%>
+  DB Socket = <%= @db_socket %>
+  <%- end -%>
+  <%- if defined? @db_user -%>
+  DB User = <%= @db_user %>
+  <%- end -%>
+  <%- if defined? @db_password -%>
+  DB Password = <%= @db_password %>
+  <%- end -%>
+  <%- if defined? @description -%>
+  Description = <%= @description %>
+  <%- end -%>
+  <%- if defined? @no_batch_insert -%>
+  Disable Batch Insert = <%= @no_batch_insert ? 'yes' : 'no' %>
+  <%- end -%>
+  <%- if defined? @exit_on_fatal -%>
+  Exit On Fatal = <%= @exit_on_fatal ? 'yes' : 'no' %>
+  <%- end -%>
+  <%- if defined? @idle_timeout -%>
+  Idle Timeout = <%= @idle_timeout %>
+  <%- end -%>
+  <%- if defined? @inc_connections -%>
+  Inc Connections = <%= @inc_connections %>
+  <%- end -%>
+  <%- if defined? @max_connections -%>
+  Max Connections = <%= @max_connections %>
+  <%- end -%>
+  <%- if defined? @min_connections -%>
+  Min Connections = <%= @min_connections %>
+  <%- end -%>
+  <%- if defined? @multiple_connections -%>
+  Multiple Connections = <%= @multiple_connections %>
+  <%- end -%>
+  <%- if defined? @reconnect -%>
+  Reconnect = <%= @reconnect ? 'yes' : 'no' %>
+  <%- end -%>
+  <%- if defined? @validate_timeout -%>
+  Validate Timeout = <%= @validate_timeout %>
+  <%- end -%>
+}

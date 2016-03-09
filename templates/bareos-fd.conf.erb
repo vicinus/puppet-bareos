@@ -32,7 +32,7 @@ Director {
 #
 FileDaemon {                          # this is me
   Name = <%= @daemon_name %>
-  Maximum Concurrent Jobs = 20
+  Maximum Concurrent Jobs = <%= @max_conc_jobs %>
 
   # remove comment from "Plugin Directory" to load plugins from specified directory.
   # if "Plugin Names" is defined, only the specified plugins will be loaded,
