@@ -107,6 +107,27 @@ class bareos::director (
         order   => '01',
         content => $managed,
     }
+    
+    # Jobs
+    $jobs_conf = "${params::director_conf_d}/jobs.conf"
+    concat::fragment {"${params::director_conf}+${jobs_conf}":
+        target  => $params::director_conf,
+        order   => '10',
+        content => "@${jobs_conf}\n",
+    }
+    concat {$jobs_conf:
+        ensure  => present,
+        owner   => $params::user,
+        group   => $params::group,
+        mode    => '0640',
+        notify  => Service[$service_name],
+        require => File[$params::director_conf_d],
+    }
+    concat::fragment {$jobs_conf:
+        target  => $jobs_conf,
+        order   => '01',
+        content => $managed,
+    }
 
     # Catalogs
     $catalogs_conf = "${params::director_conf_d}/catalogs.conf"
