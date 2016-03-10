@@ -4,15 +4,7 @@ define bareos::director::job (
     $job_type,
     $pool,
     $messages,
-    $job_definition = undef,
-    $level = undef,
-    $file_set = undef,
-    $storage = undef,
-    $schedule = undef,
-    $where = undef,
-    $priority = undef,
-    $run_before_script = undef,
-    $run_after_script = undef,
+    $options  = {}, # TODO resource references (client, storage, ...) as explicit parameters with validation/require?
 ) {
 	include params
 	include director

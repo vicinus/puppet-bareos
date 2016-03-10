@@ -120,17 +120,6 @@ Job {
 # Standard Restore template, to be changed by Console program
 #  Only one such job is needed for all Jobs/Clients/Storage ...
 #
-Job {
-  Name = "RestoreFiles"
-  Type = Restore
-  Client=vir134-fd
-  FileSet = "Linux All"
-  Storage = File
-  Pool = Incremental
-  Messages = Standard
-  Where = /tmp/bareos-restores
-}
-
 
 FileSet {
   Name = "Windows All Drives"
