@@ -1,18 +1,18 @@
 
 define bareos::director::job (
     $job_name = $title,
-    $job_definition,
     $job_type,
-    $level,
-    $file_set,
-    $storage,
-    $schedule,
     $pool,
     $messages,
-    $where,
-    $priority,
-    $run_before_script,
-    $run_after_script,
+    $job_definition = undef,
+    $level = undef,
+    $file_set = undef,
+    $storage = undef,
+    $schedule = undef,
+    $where = undef,
+    $priority = undef,
+    $run_before_script = undef,
+    $run_after_script = undef,
 ) {
 	include params
 	include director
