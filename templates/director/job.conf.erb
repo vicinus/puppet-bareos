@@ -1,0 +1,22 @@
+Job {
+    Name = "<%= @job_name %>"
+    <%- if (@job_definition) -%>
+    JobDefs = "<%= @job_definition %>"
+    <%- end -%>
+    Type = <%= @job_type %>
+    Client = @basename@-fd
+    Level = <%= @level %>
+    FileSet = "<%= @file_set %>"
+    Storage = <%= @storage %>
+    Schedule = "<%= @schedule %>"
+    Pool = <%= @pool %>
+    Messages = <%= @messages %>
+    Where = <%= @where %>
+    Priority = <%= @priority %>
+    <%- if (@run_before_script) -%>
+    RunBeforeJob = "@scriptdir@/<%= @run_before_script %>"
+    <%- end -%>
+    <%- if (@run_after_script) -%>
+    RunAfterJob = "@scriptdir@/<%= @run_after_script %>"
+    <%- end -%>
+}
