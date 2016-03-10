@@ -1,6 +1,6 @@
 Job {
     Name = "<%= @job_name %>"
-    <%- if (@job_definition) -%>
+    <%- if defined? @job_definition -%>
     JobDefs = "<%= @job_definition %>"
     <%- end -%>
     Type = <%= @job_type %>
@@ -13,10 +13,10 @@ Job {
     Messages = <%= @messages %>
     Where = <%= @where %>
     Priority = <%= @priority %>
-    <%- if (@run_before_script) -%>
+    <%- if defined? @run_before_script -%>
     RunBeforeJob = "@scriptdir@/<%= @run_before_script %>"
     <%- end -%>
-    <%- if (@run_after_script) -%>
+    <%- if defined? @run_after_script -%>
     RunAfterJob = "@scriptdir@/<%= @run_after_script %>"
     <%- end -%>
 }
