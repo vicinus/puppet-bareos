@@ -3,21 +3,7 @@ define bareos::director::catalog (
     $catalog_name         = $title,
     $db_driver,
     $db_name,
-    $db_address           = undef,
-    $db_port              = undef,
-    $db_socket            = undef,
-    $db_password          = undef,
-    $db_user              = undef,
-    $description          = undef,
-    $no_batch_insert      = undef,
-    $exit_on_fatal        = undef,
-    $idle_timeout         = undef,
-    $inc_connections      = undef,
-    $max_connections      = undef,
-    $min_connections      = undef,
-    $multiple_connections = undef,
-    $reconnect            = undef,
-    $validate_timeout     = undef,
+    $options              = {},
 ) {
 	include params
 	include director
@@ -49,14 +35,14 @@ define bareos::director::catalog (
 	} elsif $db_driver == 'mysql' {
         include catalog::mysql
         
-        if $db_address {
-            $host_param = "-h '${db_address}'"
+        if $options['DB Address'] {
+            $host_param = "-h '" + $options['DB Address'] + "'"
         }
-        if $db_user {
-            $user_param = "'-u${db_user}'"
+        if $options['DB User'] {
+            $user_param = "'-u" + $options['DB User'] + "'"
         }
-        if $db_password {
-            $pass_param = "-p '${db_password}'"
+        if $options['DB Password'] {
+            $pass_param = "-p '" + $options['DB Password'] + "'"
         }
 	
 	    exec {"${db_driver}_create_tables_for_${db_name}":

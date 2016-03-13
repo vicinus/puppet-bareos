@@ -4,4 +4,7 @@ Storage {
   Password = "<%= @password %>"
   Device = <%= @device %>
   Media Type = <%= @media_type %>
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
 }

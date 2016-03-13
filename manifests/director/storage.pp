@@ -3,10 +3,10 @@ define bareos::director::storage (
     $storage_name = $title,
     $address,
     $password,
-    $device       = 'FileStorage', # TODO check documentation for this!
-    $media_type   = 'File', # TODO check documentation for this!
+    $device,
+    $media_type,
+    $options      = {},
 ) {
-	include params
 	include director
 	
 	concat::fragment {"${director::storages_conf}+${storage_name}":

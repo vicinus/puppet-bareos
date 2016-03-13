@@ -46,9 +46,3 @@ FileDaemon {                          # this is me
   # compatible = no
 }
 
-# Send all messages except skipped files back to Director
-Messages {
-  Name = Standard
-  director = <%= @director_name %> = all, !skipped, !restored
-}
-

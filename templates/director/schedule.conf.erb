@@ -1,0 +1,9 @@
+Schedule {
+  Name = <%= @schedule_name %>
+  <%- @runs.each do |run| -%>
+  Run = <%= run %>
+  <%- end -%>
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
+}

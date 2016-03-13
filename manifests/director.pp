@@ -7,6 +7,10 @@ class bareos::director (
     $daemon_name        = "${::hostname}-fd",
     $daemon_password,
     $load_backends      = false,
+    $user               = $params::user,
+    $group              = $params::group,
+    $conf               = $params::director_conf,
+    $conf_d             = $params::director_conf_d,
     $backend_dir        = $params::director_backend_dir,
     $package_name       = $params::director_package,
     $service_name       = $params::director_service,
@@ -34,119 +38,73 @@ class bareos::director (
 
     concat {$params::director_conf:
         ensure  => present,
-        owner   => $params::user,
-        group   => $params::group,
+        owner   => $user,
+        group   => $group,
         mode    => '0640',
         require => Package[$package_name],
         notify  => Service[$service_name],
     }
 
-    concat::fragment {$params::director_conf:
-        target  => $params::director_conf,
+    concat::fragment {$conf:
+        target  => $conf,
         order   => '01',
         content => template('bareos/bareos-dir.conf.erb'),
     }
 
-    file {$params::director_conf_d:
+    file {$conf_d:
         ensure  => directory,
-        owner   => $params::user,
-        group   => $params::group,
+        owner   => $user,
+        group   => $group,
         mode    => '0755',
         require => Package[$package_name],
     }
     
     file {$params::datadir:
         ensure => directory,
-        owner  => $params::user,
-        group  => $params::group,
+        owner  => $user,
+        group  => $group,
         mode   => '0755',
     }
     
-    # TODO extract into helper resource ?
-    
-    $managed = "# Managed by puppet!\n"
-
     # Clients
-    $clients_conf = "${params::director_conf_d}/clients.conf"
-    concat::fragment {"${params::director_conf}+${clients_conf}":
-        target  => $params::director_conf,
-        order   => '10',
-        content => "@${clients_conf}\n",
-    }
-    concat {$clients_conf:
-        ensure  => present,
-        owner   => $params::user,
-        group   => $params::group,
-        mode    => '0640',
-        notify  => Service[$service_name],
-        require => File[$params::director_conf_d],
-    }
-    concat::fragment {$clients_conf:
-        target  => $clients_conf,
-        order   => '01',
-        content => $managed,
+    $clients_conf = "${conf_d}/clients.conf"
+    director::bresource {'clients':
+        conf => $clients_conf,
     }
 
     # Storages
-    $storages_conf = "${params::director_conf_d}/storages.conf"
-    concat::fragment {"${params::director_conf}+${storages_conf}":
-        target  => $params::director_conf,
-        order   => '10',
-        content => "@${storages_conf}\n",
-    }
-    concat {$storages_conf:
-        ensure  => present,
-        owner   => $params::user,
-        group   => $params::group,
-        mode    => '0640',
-        notify  => Service[$service_name],
-        require => File[$params::director_conf_d],
-    }
-    concat::fragment {$storages_conf:
-        target  => $storages_conf,
-        order   => '01',
-        content => $managed,
+    $storages_conf = "${conf_d}/storages.conf"
+    director::bresource {'storages':
+        conf => $storages_conf,
     }
     
     # Jobs
-    $jobs_conf = "${params::director_conf_d}/jobs.conf"
-    concat::fragment {"${params::director_conf}+${jobs_conf}":
-        target  => $params::director_conf,
-        order   => '10',
-        content => "@${jobs_conf}\n",
-    }
-    concat {$jobs_conf:
-        ensure  => present,
-        owner   => $params::user,
-        group   => $params::group,
-        mode    => '0640',
-        notify  => Service[$service_name],
-        require => File[$params::director_conf_d],
-    }
-    concat::fragment {$jobs_conf:
-        target  => $jobs_conf,
-        order   => '01',
-        content => $managed,
+    $jobs_conf = "${conf_d}/jobs.conf"
+    director::bresource {'jobs':
+        conf => $jobs_conf,
     }
 
     # Catalogs
-    $catalogs_conf = "${params::director_conf_d}/catalogs.conf"
-    concat::fragment {"${params::director_conf}+${catalogs_conf}":
-        target  => $params::director_conf,
-        order   => '10',
-        content => "@${catalogs_conf}\n",
+    $catalogs_conf = "${conf_d}/catalogs.conf"
+    director::bresource {'catalogs':
+        conf => $catalogs_conf,
     }
-    concat {$catalogs_conf:
-        ensure  => present,
-        owner   => $params::user,
-        group   => $params::group,
-        mode    => '0640',
-        notify  => Service[$service_name],
-        require => File[$params::director_conf_d],
+
+    # Pools
+    $pools_conf = "${conf_d}/pools.conf"
+    director::bresource {'pools':
+        conf => $pools_conf,
     }
-    concat::fragment {$catalogs_conf:
-        target  => $catalogs_conf,
-        order   => '01',
-        content => $managed,
+
+    # Schedules
+    $schedules_conf = "${conf_d}/schedules.conf"
+    director::bresource {'schedules':
+        conf => $schedules_conf,
+    }
+
+    # Messages
+    $messages_conf = "${conf_d}/messages.conf"
+    director::bresource {'messages':
+        conf => $messages_conf,
     }
 }

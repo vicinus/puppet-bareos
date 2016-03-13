@@ -85,38 +85,6 @@ JobDefs {
 }
 
 #
-# Define the main nightly save backup job
-#   By default, this job will back up to disk in /var/lib/bareos/storage
-Job {
-  Name = "BackupClient1"
-  JobDefs = "DefaultJob"
-}
-
-#
-# Backup the catalog database (after the nightly save)
-#
-Job {
-  Name = "BackupCatalog"
-  JobDefs = "DefaultJob"
-  Level = Full
-  FileSet="Catalog"
-  Schedule = "WeeklyCycleAfterBackup"
-
-  # This creates an ASCII copy of the catalog
-  # Arguments to make_catalog_backup.pl are:
-  #  make_catalog_backup.pl <catalog-name>
-  RunBeforeJob = "/usr/lib/bareos/scripts/make_catalog_backup.pl MyCatalog"
-
-  # This deletes the copy of the catalog
-  RunAfterJob  = "/usr/lib/bareos/scripts/delete_catalog_backup"
-
-  # This sends the bootstrap via mail for disaster recovery.
-  # Should be sent to another system, please change recipient accordingly
-  Write Bootstrap = "|/usr/bin/bsmtp -h localhost -f \"\(Bareos\) \" -s \"Bootstrap for Job %j\" root@localhost" # (#01)
-  Priority = 11                   # run after main backup
-}
-
-#
 # Standard Restore template, to be changed by Console program
 #  Only one such job is needed for all Jobs/Clients/Storage ...
 #
@@ -181,19 +149,6 @@ FileSet {
   }
 }
 
-Schedule {
-  Name = "WeeklyCycle"
-  Run = Full 1st sat at 21:00                   # (#04)
-  Run = Differential 2nd-5th sat at 21:00       # (#07)
-  Run = Incremental mon-fri at 21:00            # (#10)
-}
-
-# This schedule does the catalog. It starts after the WeeklyCycle
-Schedule {
-  Name = "WeeklyCycleAfterBackup"
-  Run = Full mon-fri at 21:10
-}
-
 # This is the backup of the catalog
 FileSet {
   Name = "Catalog"
@@ -204,82 +159,6 @@ FileSet {
     File = "/var/lib/bareos/bareos.sql" # database dump
     File = "/etc/bareos"                # configuration
   }
-}
-
-#
-# Reasonable message delivery -- send most everything to email address and to the console
-#
-Messages {
-  Name = Standard
-  mailcommand = "/usr/bin/bsmtp -h localhost -f \"\(Bareos\) \<%r\>\" -s \"Bareos: %t %e of %c %l\" %r"
-  operatorcommand = "/usr/bin/bsmtp -h localhost -f \"\(Bareos\) \<%r\>\" -s \"Bareos: Intervention needed for %j\" %r"
-  mail = root@vir134.app.prd.fra1.cub.yt = all, !skipped, !audit # (#02)
-  operator = root@vir134.app.prd.fra1.cub.yt = mount     # (#03)
-  console = all, !skipped, !saved, !audit
-  append = "/var/log/bareos/bareos.log" = all, !skipped, !audit
-  catalog = all, !audit
-}
-
-#
-# Message delivery for daemon messages (no job).
-#
-Messages {
-  Name = Daemon
-  mailcommand = "/usr/bin/bsmtp -h localhost -f \"\(Bareos\) \<%r\>\" -s \"Bareos daemon message\" %r"
-  mail = root@vir134.app.prd.fra1.cub.yt = all, !skipped, !audit # (#02)
-  console = all, !skipped, !saved, !audit
-  append = "/var/log/bareos/bareos.log" = all, !skipped, !audit
-  append = "/var/log/bareos/bareos-audit.log" = audit
-}
-
-#
-# Full Pool definition
-#
-Pool {
-  Name = Full
-  Pool Type = Backup
-  Recycle = yes                       # Bareos can automatically recycle Volumes
-  AutoPrune = yes                     # Prune expired volumes
-  Volume Retention = 90 days          # How long should the Full Backups be kept? (#06)
-  Maximum Volume Bytes = 50G          # Limit Volume size to something reasonable
-  Maximum Volumes = 100               # Limit number of Volumes in Pool
-  Label Format = "Full-"              # Volumes will be labeled "Full-<volume-id>"
-}
-
-#
-# Differential Pool definition
-#
-Pool {
-  Name = Differential
-  Pool Type = Backup
-  Recycle = yes                       # Bareos can automatically recycle Volumes
-  AutoPrune = yes                     # Prune expired volumes
-  Volume Retention = 90 days          # How long should the Differential Backups be kept? (#09)
-  Maximum Volume Bytes = 10G          # Limit Volume size to something reasonable
-  Maximum Volumes = 100               # Limit number of Volumes in Pool
-  Label Format = "Differential-"      # Volumes will be labeled "Differential-<volume-id>"
-}
-
-#
-# Incremental Pool definition
-#
-Pool {
-  Name = Incremental
-  Pool Type = Backup
-  Recycle = yes                       # Bareos can automatically recycle Volumes
-  AutoPrune = yes                     # Prune expired volumes
-  Volume Retention = 30 days          # How long should the Incremental Backups be kept?  (#12)
-  Maximum Volume Bytes = 1G           # Limit Volume size to something reasonable
-  Maximum Volumes = 100               # Limit number of Volumes in Pool
-  Label Format = "Incremental-"       # Volumes will be labeled "Incremental-<volume-id>"
-}
-
-#
-# Scratch pool definition
-#
-Pool {
-  Name = Scratch
-  Pool Type = Backup
 }
 
 #

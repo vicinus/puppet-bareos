@@ -1,5 +1,6 @@
-Job {
-  Name = "<%= @job_name %>"
+Pool {
+  Name = <%= @pool_name %>
+  Pool Type = <%= type %>
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>
