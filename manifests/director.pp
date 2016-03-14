@@ -108,10 +108,15 @@ class bareos::director (
         conf => $messages_conf,
     }
     
+    # Profiles
+    $profile_conf = "${conf_d}/profile.conf"
+    director::bresource {'profile':
+        conf => $profile_conf,
+    }
+
     # Console
     $console_conf = "${conf_d}/console.conf"
     director::bresource {'console':
         conf => $console_conf,
     }
-
 }

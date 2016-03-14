@@ -1,0 +1,6 @@
+Profile {
+    Name = <%= @profile_name %>
+    <%- @options.each do |(name, value)| -%>
+    <%= name %> = <%= value %>
+    <%- end -%>
+}
