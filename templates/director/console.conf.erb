@@ -1,0 +1,7 @@
+Console {
+    Name = <%= @console_name %>
+    Password = "<%= @console_password %>"
+    <%- @options.each do |(name, value)| -%>
+    <%= name %> = <%= value %>
+    <%- end -%>
+}

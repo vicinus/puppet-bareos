@@ -107,4 +107,11 @@ class bareos::director (
     director::bresource {'messages':
         conf => $messages_conf,
     }
+    
+    # Console
+    $console_conf = "${conf_d}/console.conf"
+    director::bresource {'console':
+        conf => $console_conf,
+    }
+
 }
