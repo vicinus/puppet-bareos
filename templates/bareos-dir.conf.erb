@@ -17,20 +17,3 @@ Director {
   # Plugin Directory = /usr/lib/bareos/plugins
   # Plugin Names = ""
 }
-
-JobDefs {
-  Name = "DefaultJob"
-  Type = Backup
-  Level = Incremental
-  Client = vir134-fd
-  FileSet = "SelfTest"                     # selftest fileset                            (#13)
-  Schedule = "WeeklyCycle"
-  Storage = File
-  Messages = Standard
-  Pool = Incremental
-  Priority = 10
-  Write Bootstrap = "/var/lib/bareos/%c.bsr"
-  Full Backup Pool = Full                  # write Full Backups into "Full" Pool         (#05)
-  Differential Backup Pool = Differential  # write Diff Backups into "Differential" Pool (#08)
-  Incremental Backup Pool = Incremental    # write Incr Backups into "Incremental" Pool  (#11)
-}
