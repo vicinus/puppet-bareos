@@ -1,63 +1,91 @@
 
 define bareos::director::catalog (
-    $catalog_name         = $title,
+    $catalog_name = $title,
     $db_driver,
     $db_name,
-    $options              = {},
+    $db_address   = undef,
+    $db_port      = undef,
+    $db_socket    = undef,
+    $db_user      = undef,
+    $db_password  = undef,
+    $options      = {},
 ) {
 	include params
 	include director
 	
+	$fragment = "${director::catalogs_conf}+${catalog_name}"
+	$cmd_require = [
+	    Package[$director::package_name],
+	    Concat[$director::catalogs_conf],
+	]
+	
+	$prefix        = "${catalog_name}_with_${db_driver}_for_${db_name}_do_"
+	$create_db     = "${prefix}create_db"
+	$create_tables = "${prefix}create_tables"
+	$grant_perms   = "${prefix}grant"
+	
 	if $db_driver == 'sqlite3' {
         include catalog::sqlite3
 	
-	    exec {"${db_driver}_create_db_for_${db_name}":
-	        command => '/usr/lib/bareos/scripts/create_bareos_database',
-	        creates => "${params::datadir}/${db_name}.db",
-	        notify  => Exec["${db_driver}_create_tables_for_${db_name}"],
+	    exec {$create_db:
+	        command   => '/usr/lib/bareos/scripts/create_bareos_database sqlite3',
+	        creates   => "${params::datadir}/${db_name}.db",
+	        notify    => Exec[$create_tables],
+            require   => $cmd_require,
+            subscribe => Concat::Fragment[$fragment],
 	    }
 	
 	    ->
 	
-	    exec {"${db_driver}_create_tables_for_${db_name}":
-	        command     => '/usr/lib/bareos/scripts/make_bareos_tables',
+	    exec {$create_tables:
+	        command     => '/usr/lib/bareos/scripts/make_bareos_tables sqlite3',
 	        refreshonly => true,
-	        notify      => Exec["${db_driver}_grant_for_${db_name}"],
+	        notify      => Exec[$grant_perms],
 	    }
 	
 	    ->
 	
-	    exec {"${db_driver}_grant_for_${db_name}":
-	        command     => '/usr/lib/bareos/scripts/grant_bareos_privileges',
+	    exec {$grant_perms:
+	        command     => '/usr/lib/bareos/scripts/grant_bareos_privileges sqlite3',
 	        refreshonly => true,
+            notify      => Service[$director::service_name],
 	    }
 	
 	} elsif $db_driver == 'mysql' {
         include catalog::mysql
         
-        if $options['DB Address'] {
-            $host_param = "-h '" + $options['DB Address'] + "'"
+        if $db_address {
+            $host_param =  "'--host=${db_address}'"
         }
-        if $options['DB User'] {
-            $user_param = "'-u" + $options['DB User'] + "'"
+        if $db_port {
+            $port_param = "'--port=${db_port}'"
         }
-        if $options['DB Password'] {
-            $pass_param = "-p '" + $options['DB Password'] + "'"
+        if $db_user {
+            $user_param = "'--user=${db_user}'"
+        }
+        if $db_password {
+            $pass_param = "'--password=${db_password}'"
+        }
+        if $db_socket {
+            $socket_param = "'--socket=${db_socket}'"
         }
 	
-	    exec {"${db_driver}_create_tables_for_${db_name}":
-	        command     => "/usr/lib/bareos/scripts/make_bareos_tables ${host_param} ${user_param} ${pass_param}",
+	    exec {$create_tables:
+	        command     => "/usr/lib/bareos/scripts/make_bareos_tables mysql ${host_param} ${port_param} ${user_param} ${pass_param} ${socket_param}",
 	        refreshonly => true,
+            require     => $cmd_require,
+            subscribe   => Concat::Fragment[$fragment],
+            notify      => Service[$director::service_name],
 	    }
 	
 	} elsif $db_driver == 'postgresql' {
         include catalog::postgresql
 	    notify {"database ${db_name} cannot be created automatically in ${db_driver}!":}
 	} else {
-	    fail('Unsupported database driver!')
+	    fail('Unsupported database driver! Open a Pull Request on Github if you need this!')
 	}
 	
-	concat::fragment {"${director::catalogs_conf}+${catalog_name}":
+	concat::fragment {$fragment:
 		target  => $director::catalogs_conf,
 		order   => '05',
 		content => template('bareos/director/catalog.conf.erb'),

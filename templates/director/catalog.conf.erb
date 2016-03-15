@@ -1,8 +1,23 @@
 Catalog {
-  Name = <%= @catalog_name %>
+  Name = "<%= @catalog_name %>"
   DB Driver = <%= @db_driver %>
-  DB Name = <%= @db_name %>
+  DB Name = "<%= @db_name %>"
+  <%- if defined? @db_address -%>
+  DB Address = "<%= @db_address %>"
+  <%- end -%>
+  <%- if defined? @db_port -%>
+  DB Port = <%= @db_port %>
+  <%- end -%>
+  <%- if defined? @db_socket -%>
+  DB Socket = "<%= @db_socket %>"
+  <%- end -%>
+  <%- if defined? @db_user -%>
+  DB User = "<%= @db_user %>"
+  <%- end -%>
+  <%- if defined? @db_password -%>
+  DB Password = "<%= @db_password %>"
+  <%- end -%>
   <%- @options.each do |(name, value)| -%>
-  <%= name %> = <%= (value.kind_of? String) ? '"' + value + '"' : value %>
+  <%= name %> = <%= value %>
   <%- end -%>
 }

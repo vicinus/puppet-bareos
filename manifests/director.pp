@@ -60,10 +60,11 @@ class bareos::director (
     }
     
     file {$params::datadir:
-        ensure => directory,
-        owner  => $user,
-        group  => $group,
-        mode   => '0755',
+        ensure  => directory,
+        owner   => $user,
+        group   => $group,
+        mode    => '0755',
+        require => Package[$package_name],
     }
     
     # Clients

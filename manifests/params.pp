@@ -9,17 +9,17 @@ class bareos::params {
     $plugins_dir = "${libdir}/plugins"
     
     $filedaemon_package = 'bareos-filedaemon'
-    $filedaemon_service = 'bareos-filedaemon'
+    $filedaemon_service = 'bareos-fd'
     $filedaemon_conf    = "${confdir}/bareos-fd.conf"
 
     $director_package     = 'bareos-director'
-    $director_service     = 'bareos-director'
+    $director_service     = 'bareos-dir'
     $director_conf        = "${confdir}/bareos-dir.conf"
     $director_conf_d      = "${confdir}/bareos-dir.d"
     $director_backend_dir = "${libdir}s/backends"
     
     $storage_package = 'bareos-storage'
-    $storage_service = 'bareos-storage'
+    $storage_service = 'bareos-sd'
     $storage_conf    = "${confdir}/bareos-sd.conf"
     $storage_conf_d  = "${confdir}/bareos-sd.d"
     
