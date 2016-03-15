@@ -1,0 +1,46 @@
+FileSet {
+  Name = "<%= @fileset_name %>"
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
+  <%- unless @includes.empty? -%>
+  Include {
+    <%- unless @include_options.empty? -%>
+    Options {
+      <%- @include_options.each do |(name, value)| -%>
+      <%- if value.is_a?(Array) -%>
+      <%- value.each do |v| -%>
+      <%= name %> = <%= v %>
+      <%- end -%>
+      <%- else -%>
+      <%= name %> = <%= value %>
+      <%- end -%>
+      <%- end -%>
+    }
+    <%- end -%>
+    <%- @includes.each do |rule| -%>
+    File = "<%= rule %>"
+    <%- end -%>
+  }
+  <%- end -%>
+  <%- unless @excludes.empty? -%>
+  Exclude {
+    <%- unless @exclude_options.empty? -%>
+    Options {
+      <%- @excludes_options.each do |(name, value)| -%>
+      <%- if value.is_a?(Array) -%>
+      <%- value.each do |v| -%>
+      <%= name %> = <%= v %>
+      <%- end -%>
+      <%- else -%>
+      <%= name %> = <%= value %>
+      <%- end -%>
+      <%- end -%>
+    }
+    <%- end -%>
+    <%- @excludes.each do |rule| -%>
+    File = "<%= rule %>"
+    <%- end -%>
+  }
+  <%- end -%>
+}

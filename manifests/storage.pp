@@ -51,7 +51,6 @@ class bareos::storage (
     }
     
     
-    
     file {$conf_d:
         ensure  => directory,
         owner   => $user,

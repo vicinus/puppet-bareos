@@ -36,7 +36,7 @@ class bareos::director (
         daemon_name       => $daemon_name,
     }
 
-    concat {$params::director_conf:
+    concat {$conf:
         ensure  => present,
         owner   => $user,
         group   => $group,
@@ -84,6 +84,12 @@ class bareos::director (
         conf => $jobs_conf,
     }
 
+    # Jobdefs
+    $jobdefs_conf = "${conf_d}/jobdefs.conf"
+    director::bresource {'jobdefs':
+        conf => $jobdefs_conf,
+    }
+
     # Catalogs
     $catalogs_conf = "${conf_d}/catalogs.conf"
     director::bresource {'catalogs':
@@ -114,9 +120,15 @@ class bareos::director (
         conf => $profile_conf,
     }
 
-    # Console
-    $console_conf = "${conf_d}/console.conf"
+    # Consoles
+    $consoles_conf = "${conf_d}/consoles.conf"
     director::bresource {'console':
-        conf => $console_conf,
+        conf => $consoles_conf,
+    }
+
+    # Filesets
+    $filesets_conf = "${conf_d}/filesets.conf"
+    director::bresource {'fileset':
+        conf => $filesets_conf,
     }
 }

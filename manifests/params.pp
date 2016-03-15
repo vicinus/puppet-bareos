@@ -7,9 +7,6 @@ class bareos::params {
     $libdir      = '/usr/lib/bareos'
     $datadir     = '/var/lib/bareos'
     $plugins_dir = "${libdir}/plugins"
-
-    $package_bconsole   = 'bareos-bconsole'
-    $package_webui      = 'bareos-webui'
     
     $filedaemon_package = 'bareos-filedaemon'
     $filedaemon_service = 'bareos-filedaemon'
@@ -26,6 +23,11 @@ class bareos::params {
     $storage_conf    = "${confdir}/bareos-sd.conf"
     $storage_conf_d  = "${confdir}/bareos-sd.d"
     
+    $bconsole_package = 'bareos-bconsole'
+    $bconsole_conf    = "${confdir}/bconsole.conf"
+    
+    $webui_package = 'bareos-webui'
+
     $catalog_package = {
         'mysql'      => 'bareos-database-mysql',
         'postgresql' => 'bareos-database-postgresql',
