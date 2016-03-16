@@ -4,11 +4,11 @@ define bareos::director::console (
     $console_password   = $password,
     $options  = {},
 ) {
-	include director
-	
-	concat::fragment {"${director::consoles_conf}+${console_name}":
-		target  => $director::consoles_conf,
-		order   => '05',
-		content => template('bareos/director/console.conf.erb'),
-	}
+    include director
+    
+    concat::fragment {"${director::consoles_conf}+${console_name}":
+        target  => $director::consoles_conf,
+        order   => '05',
+        content => template('bareos/director/console.conf.erb'),
+    }
 }

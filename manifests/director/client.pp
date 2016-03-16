@@ -5,11 +5,11 @@ define bareos::director::client (
     $password,
     $options        = {},
 ) {
-	include director
-	
-	concat::fragment {"${director::clients_conf}+${daemon_name}":
-		target  => $director::clients_conf,
-		order   => '05',
-		content => template('bareos/director/client.conf.erb'),
-	}
+    include director
+    
+    concat::fragment {"${director::clients_conf}+${daemon_name}":
+        target  => $director::clients_conf,
+        order   => '05',
+        content => template('bareos/director/client.conf.erb'),
+    }
 }

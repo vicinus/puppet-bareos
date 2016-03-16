@@ -9,12 +9,12 @@ define bareos::storage::device (
     $removeable_media = false,
     $always_open      = false,
 ) {
-	include params
-	include storage
-	
-	concat::fragment {"${storage::devices_conf}+${device_name}":
-		target  => $storage::devices_conf,
-		order   => '05',
-		content => template('bareos/storage/device.conf.erb'),
-	}
+    include params
+    include storage
+    
+    concat::fragment {"${storage::devices_conf}+${device_name}":
+        target  => $storage::devices_conf,
+        order   => '05',
+        content => template('bareos/storage/device.conf.erb'),
+    }
 }
