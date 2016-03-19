@@ -5,7 +5,7 @@ define bareos::filedaemon::messages (
 ) {
     include filedaemon
     
-    bareos::messages {"filedaemon_${title}":
+    shared::messages {"filedaemon_${title}":
         messages_name => $messages_name,
         target        => $filedaemon::conf,
         order         => '10',

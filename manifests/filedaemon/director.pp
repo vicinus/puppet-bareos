@@ -7,7 +7,7 @@ define bareos::filedaemon::director (
 
     include filedaemon
 
-    director::reference {"filedaemon_${title}":
+    shared::director {"filedaemon_${title}":
         director_name => $director_name,
         password      => $password,
         target        => $filedaemon::conf,

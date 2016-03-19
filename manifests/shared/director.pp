@@ -1,5 +1,5 @@
 
-define bareos::director::reference (
+define bareos::shared::director (
     $director_name = $title,
     $password,
     $target,
@@ -9,6 +9,6 @@ define bareos::director::reference (
     concat::fragment {"${target}+director_${$director_name}":
         target  => $target,
         order   => $order,
-        content => template('bareos/director/reference.conf.erb'),
+        content => template('bareos/shared/director.conf.erb'),
     }
 }

@@ -7,7 +7,7 @@ define bareos::storage::director (
 
     include storage
 
-    director::reference {"storage_${title}":
+    shared::director {"storage_${title}":
         director_name => $director_name,
         password      => $password,
         target        => $storage::conf,

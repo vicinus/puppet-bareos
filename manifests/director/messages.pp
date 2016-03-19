@@ -5,7 +5,7 @@ define bareos::director::messages (
 ) {
     include director
     
-    bareos::messages {"director_${title}":
+    shared::messages {"director_${title}":
         messages_name => $messages_name,
         target        => $director::messages_conf,
         options       => $options,

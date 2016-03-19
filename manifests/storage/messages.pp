@@ -5,7 +5,7 @@ define bareos::storage::messages (
 ) {
     include storage
     
-    bareos::messages {"storage_${title}":
+    shared::messages {"storage_${title}":
         messages_name => $messages_name,
         target        => $storage::conf,
         order         => '10',

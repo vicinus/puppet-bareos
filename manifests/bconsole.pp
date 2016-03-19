@@ -1,13 +1,13 @@
 
 class bareos::bconsole (
-    $bconsole_name,
+    $director_name,
     $port,
     $address,
     $password,
-    $user         = $params::user,
-    $group        = $params::group,
-    $conf         = $params::bconsole_conf,
-    $package_name = $params::bconsole_package,
+    $user          = $params::user,
+    $group         = $params::group,
+    $conf          = $params::bconsole_conf,
+    $package_name  = $params::bconsole_package,
 ) inherits params {
 
     include repo
