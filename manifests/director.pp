@@ -1,9 +1,7 @@
 
 class bareos::director (
-    $director_name      = "${::hostname}-dir",
+    $director_name,
     $director_password, # console (main?) password
-    $daemon_name        = "${::hostname}-fd",
-    $daemon_password,
     $query_file         = $params::director_query_file,
     $load_backends      = false,
     $backend_dir        = $params::director_backend_dir,
@@ -33,12 +31,6 @@ class bareos::director (
     }
     
     
-    class {'filedaemon':
-        director_name     => $director_name,
-        director_password => $daemon_password,
-        daemon_name       => $daemon_name,
-    }
-
     concat {$conf:
         ensure  => present,
         owner   => $user,
