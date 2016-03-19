@@ -9,6 +9,7 @@ class bareos::params {
             $libdir      = '/usr/lib/bareos'
             $datadir     = '/var/lib/bareos'
             $plugins_dir = "${libdir}/plugins"
+            $scripts_dir = "${libdir}/scripts"
             
             $filedaemon_package = 'bareos-filedaemon'
             $filedaemon_service = 'bareos-fd'

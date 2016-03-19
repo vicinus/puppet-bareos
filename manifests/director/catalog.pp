@@ -9,6 +9,8 @@ define bareos::director::catalog (
     $db_user      = undef,
     $db_password  = undef,
     $options      = {},
+    $data_dir     = $params::datadir,
+    $scripts_dir  = $params::scripts_dir,
 ) {
     include params
     include director
@@ -28,8 +30,8 @@ define bareos::director::catalog (
         include catalog::sqlite3
     
         exec {$create_db:
-            command   => '/usr/lib/bareos/scripts/create_bareos_database sqlite3',
-            creates   => "${params::datadir}/${db_name}.db",
+            command   => "'${scripts_dir}/create_bareos_database' sqlite3",
+            creates   => "${data_dir}/${db_name}.db",
             notify    => Exec[$create_tables],
             require   => $cmd_require,
             subscribe => Concat::Fragment[$fragment],
@@ -38,7 +40,7 @@ define bareos::director::catalog (
         ->
     
         exec {$create_tables:
-            command     => '/usr/lib/bareos/scripts/make_bareos_tables sqlite3',
+            command     => "'${scripts_dir}/make_bareos_tables' sqlite3",
             refreshonly => true,
             notify      => Exec[$grant_perms],
         }
@@ -46,7 +48,7 @@ define bareos::director::catalog (
         ->
     
         exec {$grant_perms:
-            command     => '/usr/lib/bareos/scripts/grant_bareos_privileges sqlite3',
+            command     => "'${scripts_dir}/grant_bareos_privileges' sqlite3",
             refreshonly => true,
             notify      => Service[$director::service_name],
         }
@@ -71,7 +73,7 @@ define bareos::director::catalog (
         }
     
         exec {$create_tables:
-            command     => "/usr/lib/bareos/scripts/make_bareos_tables mysql ${host_param} ${port_param} ${user_param} ${pass_param} ${socket_param}",
+            command     => "'${scripts_dir}/make_bareos_tables' mysql ${host_param} ${port_param} ${user_param} ${pass_param} ${socket_param}",
             refreshonly => true,
             require     => $cmd_require,
             subscribe   => Concat::Fragment[$fragment],
