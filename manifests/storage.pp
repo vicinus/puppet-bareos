@@ -3,8 +3,6 @@ class bareos::storage (
     $storage_name       = "${::hostname}-sd",
     $director_name,
     $director_password,
-    $monitor_name       = undef,
-    $monitor_password   = undef,
     $max_conc_jobs      = 20,
     $user               = $params::user,
     $group              = $params::group,
@@ -42,9 +40,11 @@ class bareos::storage (
         content => template('bareos/bareos-sd.conf.erb'),
     }
     
-    messages {'Storage Messages':
-        messages_name => 'Standard',
-        target        => $conf,
+    storage::director {$director_name:
+        password => $director_password,
+    }
+    
+    storage::messages {'Standard':
         options       => {
             'Director' => "${director_name} = all",
         },
@@ -62,7 +62,7 @@ class bareos::storage (
     $devices_conf = "${conf_d}/devices.conf"
     concat::fragment {"${conf}+${devices_conf}":
         target  => $conf,
-        order   => '10',
+        order   => '15',
         content => "@${devices_conf}\n",
     }
     concat {$devices_conf:

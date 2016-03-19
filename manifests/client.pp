@@ -12,8 +12,6 @@ class bareos::client (
     class {'filedaemon':
         director_name     => $director_name,
         director_password => $access_password,
-        monitor_name      => $monitor_name,
-        monitor_password  => $monitor_password,
         daemon_name       => $daemon_name,
     }
 }

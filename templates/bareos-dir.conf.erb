@@ -1,19 +1,15 @@
 Director {
-  Name = <%= @director_name %>
-  QueryFile = "/usr/lib/bareos/scripts/query.sql"
-  Maximum Concurrent Jobs = 10
+  Name = "<%= @director_name %>"
+  QueryFile = "<%= @query_file %>"
   Password = "<%= @director_password %>"
-  Messages = Daemon
-  Auditing = yes
-
   <%- if (@load_backends) -%>
   Backend Directory = <%= @backend_dir %>
   <%- end -%>
-
-  # remove comment from "Plugin Directory" to load plugins from specified directory.
-  # if "Plugin Names" is defined, only the specified plugins will be loaded,
-  # otherwise all director plugins (*-dir.so) from the "Plugin Directory".
-  #
-  # Plugin Directory = /usr/lib/bareos/plugins
-  # Plugin Names = ""
+  <%- if @plugins_enable -%>
+  Plugin Directory = "<%= @plugins_dir %>"
+  Plugin Names = "<%= @plugins.join(' ') %>"
+  <%- end -%>
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
 }

@@ -2,16 +2,19 @@
 class bareos::director (
     $director_name      = "${::hostname}-dir",
     $director_password, # console (main?) password
-    $monitor_name       = undef,
-    $monitor_password   = undef, # console (main?) password
     $daemon_name        = "${::hostname}-fd",
     $daemon_password,
+    $query_file         = $params::director_query_file,
     $load_backends      = false,
+    $backend_dir        = $params::director_backend_dir,
+    $plugins_enable     = false,
+    $plugins_dir        = $params::plugins_dir,
+    $plugins            = [],
+    $options            = {},
     $user               = $params::user,
     $group              = $params::group,
     $conf               = $params::director_conf,
     $conf_d             = $params::director_conf_d,
-    $backend_dir        = $params::director_backend_dir,
     $package_name       = $params::director_package,
     $service_name       = $params::director_service,
 ) inherits params {
