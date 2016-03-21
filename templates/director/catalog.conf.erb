@@ -20,4 +20,7 @@ Catalog {
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>
+  <%- @includes.each do |include| -%>
+  @"<%= include %>"
+  <%- end -%>
 }

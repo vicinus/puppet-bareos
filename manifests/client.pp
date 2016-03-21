@@ -2,9 +2,7 @@
 class bareos::client (
     $director_name,
     $access_password,
-    $monitor_name       = undef,
-    $monitor_password   = undef, # console (main?) password
-    $daemon_name        = "${::hostname}-fd",
+    $daemon_name     = "${::hostname}-fd",
 ) inherits bareos::params {
 
     include repo

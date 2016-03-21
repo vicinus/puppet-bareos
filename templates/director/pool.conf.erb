@@ -1,7 +1,10 @@
 Pool {
-  Name = <%= @pool_name %>
+  Name = "<%= @pool_name %>"
   Pool Type = <%= type %>
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
+  <%- end -%>
+  <%- @includes.each do |include| -%>
+  @"<%= include %>"
   <%- end -%>
 }

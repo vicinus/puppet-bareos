@@ -1,9 +1,10 @@
 
 class bareos::filedaemon (
-    $director_name,     # name of the director connecting to the filedaemon
-    $director_password, # password required by the director connecting ("master needs to know my password")
     $daemon_name       = "${::hostname}-fd",
+    $director_name,
+    $director_password,
     $max_conc_jobs     = 20,
+    $default_messages  = true,
     $user              = $params::user,
     $group             = $params::group,
     $conf              = $params::filedaemon_conf,
@@ -43,9 +44,11 @@ class bareos::filedaemon (
         password => $director_password,
     }
     
-    filedaemon::messages {'Standard':
-        options       => {
-            'Director' => "${director_name} = all, !skipped, !restored",
-        },
+    if $default_messages {
+        filedaemon::messages {'Standard':
+            options       => {
+                'Director' => "${director_name} = all, !skipped, !restored",
+            },
+        }
     }
 }

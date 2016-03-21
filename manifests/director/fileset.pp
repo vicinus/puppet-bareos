@@ -6,6 +6,7 @@ define bareos::director::fileset (
     $include_options = {},
     $excludes        = [],
     $exclude_options = {},
+    $conf_includes   = [],
 ) {
     include director
     

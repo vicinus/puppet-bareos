@@ -5,6 +5,7 @@ define bareos::shared::console (
     $order        = '06',
     $password,
     $options      = {},
+    $includes     = [],
 ) {
     concat::fragment {"${target}+${console_name}":
         target  => $target,

@@ -6,6 +6,7 @@ define bareos::director::storage (
     $device,
     $media_type,
     $options      = {},
+    $includes     = [],
 ) {
     include director
     

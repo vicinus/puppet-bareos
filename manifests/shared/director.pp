@@ -5,6 +5,7 @@ define bareos::shared::director (
     $target,
     $order         = '06',
     $options       = {},
+    $includes      = [],
 ) {
     concat::fragment {"${target}+director_${$director_name}":
         target  => $target,

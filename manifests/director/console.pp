@@ -3,6 +3,7 @@ define bareos::director::console (
     $console_name = $title,
     $password,
     $options      = {},
+    $includes     = [],
 ) {
     include director
 
@@ -12,5 +13,6 @@ define bareos::director::console (
         order        => '05',
         password     => $password,
         options      => $options,
+        includes     => $includes,
     }
 }

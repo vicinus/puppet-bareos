@@ -1,9 +1,10 @@
 
 define bareos::director::client (
-    $daemon_name    = $title,
-    $address        = $::fqdn,
+    $daemon_name = $title,
+    $address     = $::fqdn,
     $password,
-    $options        = {},
+    $options     = {},
+    $includes    = [],
 ) {
     include director
     

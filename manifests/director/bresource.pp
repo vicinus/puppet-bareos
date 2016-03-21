@@ -21,4 +21,15 @@ define bareos::director::bresource($conf) {
         order   => '01',
         content => "# Managed by puppet!\n",
     }
+    
+    file {"${conf}.d":
+        ensure  => directory,
+        owner   => $director::user,
+        group   => $director::group,
+        mode    => '0755',
+        recurse => true,
+        purge   => true,
+        force   => true,
+        require => Concat[$conf],
+    }
 }

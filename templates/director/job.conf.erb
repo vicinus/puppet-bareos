@@ -3,4 +3,8 @@ Job {
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>
+  <%- @includes.each do |include| -%>
+  @"<%= include %>"
+  <%- end -%>
+  @|"find '<%= @conf_d %>' -type f -exec echo @\"{}\" \;"
 }

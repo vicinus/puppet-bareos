@@ -1,7 +1,8 @@
 
 define bareos::director::profile (
-    $profile_name       = $title,
-    $options  = {},
+    $profile_name = $title,
+    $options      = {},
+    $includes     = [],
 ) {
     include director
     

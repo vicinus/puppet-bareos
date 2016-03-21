@@ -1,0 +1,8 @@
+RunScript {
+  Runs When = <%= @when %>
+  Runs On Success = <%= @on_success ? 'yes' : 'no' %>
+  Runs On Failure = <%= @on_failure ? 'yes' : 'no' %>
+  Runs On Client = <%= @on == 'client' ? 'yes' : 'no' %>
+  Fail Job On Error = <%= @fail_job ? 'yes' : 'no' %>
+  <%= @as %> = "<%= @do %>"
+}

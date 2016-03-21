@@ -11,6 +11,7 @@ define bareos::director::catalog (
     $options      = {},
     $data_dir     = $params::datadir,
     $scripts_dir  = $params::scripts_dir,
+    $includes     = [],
 ) {
     include params
     include director
@@ -87,8 +88,9 @@ define bareos::director::catalog (
         fail('Unsupported database driver! Open a Pull Request on Github if you need this!')
     }
     
+    $conf = $director::catalogs_conf
     concat::fragment {$fragment:
-        target  => $director::catalogs_conf,
+        target  => $conf,
         order   => '05',
         content => template('bareos/director/catalog.conf.erb'),
     }

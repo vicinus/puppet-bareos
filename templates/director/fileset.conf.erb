@@ -43,4 +43,7 @@ FileSet {
     <%- end -%>
   }
   <%- end -%>
+  <%- @conf_includes.each do |include| -%>
+  @"<%= include %>"
+  <%- end -%>
 }

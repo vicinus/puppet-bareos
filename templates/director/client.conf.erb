@@ -1,9 +1,12 @@
 Client {
-  Name = <%= @daemon_name %>
-  Address = <%= @address %>
+  Name = "<%= @daemon_name %>"
+  Address = "<%= @address %>"
   Password = "<%= @password %>"
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
+  <%- end -%>
+  <%- @includes.each do |include| -%>
+  @"<%= include %>"
   <%- end -%>
 }
 

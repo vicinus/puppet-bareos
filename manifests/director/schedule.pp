@@ -3,6 +3,7 @@ define bareos::director::schedule (
     $schedule_name = $title,
     $runs          = [],
     $options       = {},
+    $includes      = [],
 ) {
     include director
     

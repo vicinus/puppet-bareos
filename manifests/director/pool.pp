@@ -3,6 +3,7 @@ define bareos::director::pool (
     $pool_name = $title,
     $type,
     $options   = {},
+    $includes  = [],
 ) {
     include director
     
