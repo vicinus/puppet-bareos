@@ -4,6 +4,10 @@ class bareos::storage (
     $director_name,
     $director_password,
     $max_conc_jobs      = 20,
+    $default_messages   = true,
+    $plugins_dir        = $params::plugins_dir,
+    $plugins            = [],
+    $options            = {},
     $user               = $params::user,
     $group              = $params::group,
     $conf               = $params::storage_conf,
@@ -44,10 +48,12 @@ class bareos::storage (
         password => $director_password,
     }
     
-    storage::messages {'Standard':
-        options       => {
-            'Director' => "${director_name} = all",
-        },
+    if $default_messages {
+        storage::messages {'Standard':
+            options       => {
+                'Director' => "${director_name} = all",
+            },
+        }
     }
     
     

@@ -1,7 +1,5 @@
 
-class bareos::repo (
-    $version = 'latest',
-) {
+class bareos::repo::contrib {
 
     include global
 
@@ -9,8 +7,8 @@ class bareos::repo (
     
         case $::osfamily {
             'Debian': {
-                apt::source {$global::repo_name:
-                    location    => "http://download.bareos.org/bareos/release/${version}/${::operatingsystem}_${::operatingsystemmajrelease}.0/",
+                apt::source {$global::contrib_repo_name:
+                    location    => "http://download.bareos.org/bareos/contrib/${::operatingsystem}_${::operatingsystemmajrelease}.0/",
                     release     => '',
                     repos       => '/',
                     include_deb => true,
@@ -19,7 +17,7 @@ class bareos::repo (
                     pin         => 1000,
                 }
                 
-                $require = Apt::Source[$global::repo_name]
+                $require = Apt::Source[$global::contrib_repo_name]
             }
         }
         

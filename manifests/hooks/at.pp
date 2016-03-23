@@ -13,15 +13,14 @@ define bareos::hooks::at (
     include hooks
     
     director::hook {"generic_hook_${title}":
-        for        => $for,
-        default    => $default,
-        do         => "${hooks::prefix}/${file_name}",
-        when       => $when,
-        as         => 'Command',
-        on         => $on,
-        on_success => $on_success,
-        on_failure => $on_failure,
-        fail_job   => $fail_job,
+        for            => $for,
+        default        => $default,
+        shell_commands => ["${hooks::prefix}/${file_name}"],
+        when           => $when,
+        on             => $on,
+        on_success     => $on_success,
+        on_failure     => $on_failure,
+        fail_job       => $fail_job,
     }
 
 }

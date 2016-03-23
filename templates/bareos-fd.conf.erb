@@ -1,16 +1,10 @@
 FileDaemon {
   Name = "<%= @daemon_name %>"
-  Maximum Concurrent Jobs = <%= @max_conc_jobs %>
-
-  # remove comment from "Plugin Directory" to load plugins from specified directory.
-  # if "Plugin Names" is defined, only the specified plugins will be loaded,
-  # otherwise all storage plugins (*-fd.so) from the "Plugin Directory".
-  #
-  # Plugin Directory = /usr/lib/bareos/plugins
-  # Plugin Names = ""
-
-  # if compatible is set to yes, we are compatible with bacula
-  # if you want to use new bareos features, please set
-  # compatible = no
+  compatible = <%= @compatible ? 'yes' : 'no' %>
+  Plugin Directory = "<%= @plugins_dir %>"
+  Plugin Names = "<%= @plugins.join(' ') %>"
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
 }
 

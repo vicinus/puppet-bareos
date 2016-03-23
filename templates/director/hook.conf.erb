@@ -4,5 +4,10 @@ RunScript {
   Runs On Failure = <%= @on_failure ? 'yes' : 'no' %>
   Runs On Client = <%= @on == 'client' ? 'yes' : 'no' %>
   Fail Job On Error = <%= @fail_job ? 'yes' : 'no' %>
-  <%= @as %> = "<%= @do %>"
+  <%- @shell_commands.each do |command| -%>
+  Command = "<%= command %>"
+  <%- end -%>
+  <%- @console_commands.each do |command| -%>
+  Console = "<%= command %>"
+  <%- end -%>
 }

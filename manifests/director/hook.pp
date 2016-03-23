@@ -1,15 +1,15 @@
 
 define bareos::director::hook (
-    $hook_name  = $title,
+    $hook_name        = $title,
     $for,
-    $do,
-    $default    = false,
-    $when       = 'Always',
-    $as         = 'Command',
-    $on         = 'client',
-    $on_success = true,
-    $on_failure = false,
-    $fail_job   = false,
+    $default          = false,
+    $when             = 'Always',
+    $shell_commands   = [],
+    $console_commands = [],
+    $on               = 'client',
+    $on_success       = true,
+    $on_failure       = false,
+    $fail_job         = false,
 ) {
     include director
     

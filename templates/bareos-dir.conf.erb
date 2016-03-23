@@ -5,10 +5,8 @@ Director {
   <%- if (@load_backends) -%>
   Backend Directory = <%= @backend_dir %>
   <%- end -%>
-  <%- if @plugins_enable -%>
   Plugin Directory = "<%= @plugins_dir %>"
   Plugin Names = "<%= @plugins.join(' ') %>"
-  <%- end -%>
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>
