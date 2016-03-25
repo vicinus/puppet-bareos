@@ -1,8 +1,14 @@
 
-class bareos::director::plugin {
+class bareos::director::plugin (
+    $python_package = 'bareos-director-python-plugin',
+) {
 
+    include repo
     include director
 
-    $python_package = 'bareos-director-python-plugin'
+    @package {$python_package:
+        ensure  => installed,
+        require => $repo::require,
+    }
 
 }

@@ -1,9 +1,11 @@
 
-class bareos::filedaemon::plugin::python (
-    $package_name = $plugin::python_package
+class bareos::storage::plugin::scsicrypto (
+    $package_name = $plugin::scsicrypto_package
 ) inherits plugin {
 
-    if $package_name == $plugin::python_package {
+    include repo
+    
+    if $package_name == $plugin::scsicrypto_package {
         realize Package[$package_name]
     } else {
         package {$package_name:
