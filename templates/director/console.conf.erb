@@ -1,0 +1,19 @@
+Console {
+  Name = "<%= @console_name %>"
+  Password = "<%= @password %>"
+  <%- if defined?(description) -%>
+  Description = "<%= @description %>"
+  <%- end -%>
+  <%- if defined?(profile) -%>
+  Profile = <%= profile.kind_of?(Array) ? profile.join(', ') : profile %>
+  <%- end -%>
+  <%- @acls.each do |(name, value)| -%>
+  <%= name %> ACL = <%= value.kind_of?(Array) ? value.join(', ') : value %>
+  <%- end -%>
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
+  <%- @includes.each do |include| -%>
+  @"<%= include %>"
+  <%- end -%>
+}

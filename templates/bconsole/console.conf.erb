@@ -1,0 +1,10 @@
+Console {
+  Name = "<%= @console_name %>"
+  Password = "<%= @password %>"
+  <%- if defined?(@director) -%>
+  Director = "<%= @director %>"
+  <%- end -%>
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
+}

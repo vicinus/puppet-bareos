@@ -1,0 +1,17 @@
+Director {
+  Name = "<%= @director_name %>"
+  Password = "<%= @password %>"
+  <%- if defined?(@address) -%>
+  Address = "<%= @address %>"
+  <%- end -%>
+  Dir Port = <%= @port %>
+  <%- if defined?(@heartbeat_interval) -%>
+  Heartbeat Interval = "<%= @heartbeat_interval %>"
+  <%- end -%>
+  <%- if defined?(@description) -%>
+  Description = "<%= @description %>"
+  <%- end -%>
+  <%- @options.each do |(name, value)| -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
+}

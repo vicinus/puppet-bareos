@@ -1,7 +1,8 @@
 
 class bareos::director (
     $director_name,
-    $director_password, # console (main?) password
+    $director_password,
+    $port               = $params::director_port,
     $query_file         = $params::director_query_file,
     $load_backends      = false,
     $backend_dir        = $params::director_backend_dir,

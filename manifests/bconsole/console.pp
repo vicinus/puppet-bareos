@@ -3,20 +3,13 @@ define bareos::bconsole::console (
     $console_name = $title,
     $password,
     $director     = undef,
+    $options      = {},
 ) {
     include bconsole
 
-    $options = {}
-
-    if $director {
-        $options['Director'] = $director
-    }
-
-    shared::console {"bconsole_${title}":
-        console_name => $console_name,
-        target       => $bconsole::conf,
-        order        => '10',
-        password     => $password,
-        options      => $options,
+    concat::fragment {"${bconsole::conf}+console_${console_name}":
+        target  => $bconsole::conf,
+        order   => '10',
+        content => template('bareos/bconsole/console.conf.erb'),
     }
 }

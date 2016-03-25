@@ -2,13 +2,13 @@
 class bareos::webui (
     $package_name   = $params::webui_package,
     $profile_name   = $params::webui_profile_name,
+    $manage_profile = false,
     $conf_d         = $params::webui_conf_d,
     $directors_conf = $params::webui_directors_conf,
     $data_dir       = $params::webui_data_dir,
     $public_dir     = $params::webui_public_dir,
     $user           = $params::webui_user,
     $group          = $params::webui_group,
-    $manage_profile = false,
 ) inherits params {
 
     include global
@@ -61,16 +61,20 @@ class bareos::webui (
     if $manage_profile {
 
         director::profile {$profile_name:
-            options => {
-                'Command ACL'  => 'status, messages, show, version, run, rerun, cancel, .api, .bvfs_*, list, llist, use, restore, .jobs, .filesets, .clients',
-                'Job ACL'      => '*all*',
-                'Schedule ACL' => '*all*',
-                'Catalog ACL'  => '*all*',
-                'Pool ACL'     => '*all*',
-                'Storage ACL'  => '*all*',
-                'Client ACL'   => '*all*',
-                'FileSet ACL'  => '*all*',
-                'Where ACL'    => '*all*'
+            acls => {
+                'Command'  => [
+                    'status',  'messages', 'show',      'version',  'run',   'rerun',
+                    'cancel',  '.api',     '.bvfs_*',   'list',     'llist', 'use',
+                    'restore', '.jobs',    '.filesets', '.clients',
+                ],
+                'Job'      => '*all*',
+                'Schedule' => '*all*',
+                'Catalog'  => '*all*',
+                'Pool'     => '*all*',
+                'Storage'  => '*all*',
+                'Client'   => '*all*',
+                'FileSet'  => '*all*',
+                'Where'    => '*all*'
             }
         }
     

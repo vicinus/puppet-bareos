@@ -1,9 +1,9 @@
 
 class bareos::bconsole (
-    $director_name,
-    $port,
-    $address,
-    $password,
+    $director_name = undef,
+    $password      = $params::dummy_password,
+    $address       = undef,
+    $port          = $params::director_port,
     $user          = $params::user,
     $group         = $params::group,
     $conf          = $params::bconsole_conf,
@@ -28,8 +28,18 @@ class bareos::bconsole (
 
     concat::fragment {$conf:
         target  => $conf,
-        order   => '05',
-        content => template('bareos/bconsole.conf.erb'),
+        order   => '01',
+        content => "# Managed by puppet !\n",
+    }
+    
+    if $director_name {
+
+        bconsole::director {$director_name:
+            password => $password,
+            address  => $address,
+            port     => $port,
+        }
+
     }
 
 }

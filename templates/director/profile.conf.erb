@@ -3,6 +3,9 @@ Profile {
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>
+  <%- @acls.each do |(name, value)| -%>
+  <%= name %> ACL = <%= value.kind_of?(Array) ? value.join(', ') : value %>
+  <%- end -%>
   <%- @includes.each do |include| -%>
   @"<%= include %>"
   <%- end -%>
