@@ -1,0 +1,20 @@
+{
+    "name":    "cubyte-bareos",
+    "version": "0.0.1",
+    "author":  "pschichtel",
+    "license": "GPL-3.0",
+    "summary": "A module for a thing",
+    "source":       "https://github.com/cubyte-oss/puppet-bareos",
+    "project_page": "https://github.com/cubyte-oss/puppet-bareos",
+    "issues_url":   "https://github.com/cubyte-oss/puppet-bareos/issues",
+    "tags": ["bareos", "bacula", "backup"],
+    "operatingsystem_support": [
+        {
+            "operatingsystem": "Debian",
+            "operatingsystemrelease": [ "7", "8" ]
+        }
+    ],
+    "dependencies": [
+        { "name": "puppetlabs/concat", "version_requirement": ">= 1.0.0" }
+    ]
+}
