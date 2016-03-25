@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "author":  "pschichtel",
     "license": "GPL-3.0",
-    "summary": "A module for a thing",
+    "summary": "Puppet module for bareos",
     "source":       "https://github.com/cubyte-oss/puppet-bareos",
     "project_page": "https://github.com/cubyte-oss/puppet-bareos",
     "issues_url":   "https://github.com/cubyte-oss/puppet-bareos/issues",
