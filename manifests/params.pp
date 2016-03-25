@@ -35,7 +35,14 @@ class bareos::params {
             $bconsole_package = 'bareos-bconsole'
             $bconsole_conf    = "${confdir}/bconsole.conf"
             
-            $webui_package = 'bareos-webui'
+            $webui_package        = 'bareos-webui'
+            $webui_profile_name   = 'webui'
+            $webui_conf_d         = '/etc/bareos-webui'
+            $webui_directors_conf = "${webui_conf_d}/directors.ini"
+            $webui_user           = 'root'
+            $webui_group          = 'root'
+            $webui_data_dir       = '/usr/share/bareos-webui'
+            $webui_public_dir     = "${webui_data_dir}/public"
 
             $catalog_package = {
                 'mysql'      => 'bareos-database-mysql',
