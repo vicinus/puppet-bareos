@@ -9,6 +9,7 @@ class bareos::filedaemon::plugin (
     $vmware_package    = 'bareos-vmware-plugin',
 ) {
 
+    include global
     include repo
     include filedaemon
     
@@ -21,7 +22,7 @@ class bareos::filedaemon::plugin (
     ]
 
     @package {$packages:
-        ensure  => installed,
+        ensure  => $global::package_ensure,
         require => $repo::require,
     }
 

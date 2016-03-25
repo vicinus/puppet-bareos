@@ -16,10 +16,11 @@ class bareos::storage (
     $service_name       = $params::storage_service,
 ) inherits params {
 
+    include global
     include repo
     
     package {$storage_package:
-        ensure  => installed,
+        ensure  => $global::package_ensure,
         require => $repo::require,
     }
     

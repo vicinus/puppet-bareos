@@ -10,10 +10,11 @@ class bareos::bconsole (
     $package_name  = $params::bconsole_package,
 ) inherits params {
 
+    include global
     include repo
     
     package {$package_name:
-        ensure  => installed,
+        ensure  => $global::package_ensure,
         require => $repo::require,
     }
     

@@ -6,16 +6,17 @@ class bareos::storage::plugin (
     $autoxflate_package    = $storage::package_name,
 ) {
 
+    include global
     include repo
     include storage
     
     @package {$python_package:
-        ensure  => installed,
+        ensure  => $global::package_ensure,
         require => $repo::require,
     }
     
     @package {$scsicrypto_package:
-        ensure  => installed,
+        ensure  => $global::package_ensure,
         require => $repo::require,
     }
 

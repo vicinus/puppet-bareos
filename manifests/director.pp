@@ -16,10 +16,11 @@ class bareos::director (
     $service_name       = $params::director_service,
 ) inherits params {
 
+    include global
     include repo
     
     package {$package_name:
-        ensure  => installed,
+        ensure  => $global::package_ensure,
         require => $repo::require,
     }
     
