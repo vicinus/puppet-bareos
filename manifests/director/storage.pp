@@ -1,14 +1,15 @@
 
 define bareos::director::storage (
-    $storage_name = $title,
     $address,
     $password,
-    $device,
+    $device, # No dependency on the device as the device definition might be on a different node
     $media_type,
     $options      = {},
     $includes     = [],
 ) {
     include director
+    
+    $storage_name = $title
     
     concat::fragment {"${director::storages_conf}+${storage_name}":
         target  => $director::storages_conf,

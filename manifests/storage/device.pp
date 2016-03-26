@@ -1,6 +1,5 @@
 
 define bareos::storage::device (
-    $device_name      = $title,
     $media_type,
     $archive_device,
     $label_media      = false,
@@ -11,6 +10,8 @@ define bareos::storage::device (
 ) {
     include params
     include storage
+    
+    $device_name      = $title
     
     concat::fragment {"${storage::devices_conf}+${device_name}":
         target  => $storage::devices_conf,

@@ -81,12 +81,6 @@ class bareos::director (
         conf => $jobs_conf,
     }
 
-    # Jobdefs
-    $jobdefs_conf = "${conf_d}/jobdefs.conf"
-    director::bresource {'jobdefs':
-        conf => $jobdefs_conf,
-    }
-
     # Catalogs
     $catalogs_conf = "${conf_d}/catalogs.conf"
     director::bresource {'catalogs':

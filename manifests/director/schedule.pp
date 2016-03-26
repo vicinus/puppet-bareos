@@ -1,11 +1,13 @@
 
 define bareos::director::schedule (
-    $schedule_name = $title,
+    $enabled       = true,
     $runs          = [],
     $options       = {},
     $includes      = [],
 ) {
     include director
+    
+    $schedule_name = $title
     
     concat::fragment {"${director::schedules_conf}+${schedule_name}":
         target  => $director::schedules_conf,

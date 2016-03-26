@@ -1,5 +1,32 @@
-Job {
+<%= @is_default ? 'JobDefs' : 'Job' %> {
   Name = "<%= @job_name %>"
+  <%- if defined?(@type) -%>
+  Type = <%= @type %>
+  <%- end -%>
+  <%- if ! @enabled -%>
+  Enabled = yes
+  <%- end -%>
+  <%- if defined?(@base) -%>
+  Job Defs = "<%= @base %>"
+  <%- end -%>
+  <%- if defined?(@fileset) -%>
+  File Set = "<%= @fileset %>"
+  <%- end -%>
+  <%- if defined?(@schedule) -%>
+  Schedule = "<%= @schedule %>"
+  <%- end -%>
+  <%- if defined?(@pool) -%>
+  Pool = "<%= @pool %>"
+  <%- end -%>
+  <%- if defined?(@messages) -%>
+  Messages = "<%= @messages %>"
+  <%- end -%>
+  <%- if defined?(@storage) -%>
+  Storage = "<%= @storage %>"
+  <%- end -%>
+  <%- if defined?(@client) -%>
+  Client = "<%= @client %>"
+  <%- end -%>
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>

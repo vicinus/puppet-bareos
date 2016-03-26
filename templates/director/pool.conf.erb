@@ -1,6 +1,12 @@
 Pool {
   Name = "<%= @pool_name %>"
   Pool Type = <%= type %>
+  <%- if defined?(@catalog) -%>
+  Catalog = "<%= @catalog %>"
+  <%- end -%>
+  <%- if defined?(@storage) -%>
+  Storage = "<%= @storage %>"
+  <%- end -%>
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>

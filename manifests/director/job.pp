@@ -1,11 +1,21 @@
 
 define bareos::director::job (
-    $job_name = $title,
-    $defaults = undef,
-    $options  = {}, # TODO resource references (client, storage, ...) as explicit parameters with validation/require?
-    $includes = [],
+    $type       = undef,
+    $enabled    = true,
+    $is_default = false,
+    $base       = undef,
+    $fileset    = undef,
+    $schedule   = undef,
+    $pool       = undef,
+    $messages   = undef,
+    $storage    = undef,
+    $client     = undef,
+    $options    = {},
+    $includes   = [],
 ) {
     include director
+
+    $job_name   = $title
     
     $conf_root = "${director::jobs_conf}.d"
     $conf_d = "${conf_root}/${job_name}"
@@ -20,14 +30,43 @@ define bareos::director::job (
         require => File[$conf_root],
     }
     
-    if $defaults {
-        $defaults_req = Jobdefs[$defaults]
+    if $base {
+        realize Job[$base]
+    }
+    
+    if $fileset {
+        realize Fileset[$fileset]
+    }
+    
+    if $schedule {
+        realize Director::Schedule[$schedule]
+    }
+    
+    if $pool {
+        realize Pool[$pool]
+    }
+    
+    if $messages {
+        realize Messages[$messages]
+    }
+    
+    if $storage {
+        realize Storage[$storage]
+    }
+    
+    if $client {
+        realize Client[$client]
+    }
+    
+    if $is_default {
+        $order = '05'
+    } else {
+        $order = '06'
     }
     
     concat::fragment {"${director::jobs_conf}+${job_name}":
         target  => $director::jobs_conf,
-        order   => '05',
+        order   => $order,
         content => template('bareos/director/job.conf.erb'),
-        require => $defaults_req,
     }
 }

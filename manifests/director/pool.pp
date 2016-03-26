@@ -1,11 +1,22 @@
 
 define bareos::director::pool (
-    $pool_name = $title,
     $type,
-    $options   = {},
-    $includes  = [],
+    $catalog  = undef,
+    $storage  = undef,
+    $options  = {},
+    $includes = [],
 ) {
     include director
+    
+    $pool_name = $title
+    
+    if $catalog {
+        realize Catalog[$catalog]
+    }
+    
+    if $storage {
+        realize Storage[$storage]
+    }
     
     concat::fragment {"${director::pools_conf}+${pool_name}":
         target  => $director::pools_conf,

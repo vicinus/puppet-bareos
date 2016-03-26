@@ -1,6 +1,5 @@
 
 define bareos::director::catalog (
-    $catalog_name = $title,
     $db_driver,
     $db_name,
     $db_address   = undef,
@@ -15,6 +14,8 @@ define bareos::director::catalog (
 ) {
     include params
     include director
+    
+    $catalog_name = $title
     
     $fragment = "${director::catalogs_conf}+${catalog_name}"
     $cmd_require = [

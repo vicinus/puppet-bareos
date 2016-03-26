@@ -1,12 +1,12 @@
 Messages {
-  Name = <%= @messages_name %>
-<%- @options.each do |(name, value)| -%>
-<%- if value.is_a?(Array) -%>
-<%- value.each do |v| -%>
+  Name = "<%= @messages_name %>"
+  <%- @options.each do |(name, value)| -%>
+  <%- if value.is_a?(Array) -%>
+  <%- value.each do |v| -%>
   <%= name %> = <%= v %>
-<%- end -%>
-<%- else -%>
+  <%- end -%>
+  <%- else -%>
   <%= name %> = <%= value %>
-<%- end -%>
-<%- end -%>
+  <%- end -%>
+  <%- end -%>
 }

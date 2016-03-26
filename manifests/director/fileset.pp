@@ -1,6 +1,5 @@
 
 define bareos::director::fileset (
-    $fileset_name    = $title,
     $options         = {},
     $includes        = [],
     $include_options = {},
@@ -9,6 +8,8 @@ define bareos::director::fileset (
     $conf_includes   = [],
 ) {
     include director
+    
+    $fileset_name    = $title
     
     concat::fragment {"${director::filesets_conf}+${fileset_name}":
         target  => $director::filesets_conf,

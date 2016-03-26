@@ -1,10 +1,11 @@
 
 define bareos::director::messages (
-    $messages_name = $title,
-    $options       = {}, # TODO resource references (client, storage, ...) as explicit parameters with validation/require?
+    $options       = {},
     $includes      = [],
 ) {
     include director
+    
+    $messages_name = $title
     
     shared::messages {"director_${title}":
         messages_name => $messages_name,

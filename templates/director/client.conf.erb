@@ -1,7 +1,13 @@
 Client {
   Name = "<%= @daemon_name %>"
+  <%- if ! @enabled -%>
+  Enabled = yes
+  <%- end -%>
   Address = "<%= @address %>"
   Password = "<%= @password %>"
+  <%- if defined?(@catalog) -%>
+  Catalog = "<%= @catalog %>"
+  <%- end -%>
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>

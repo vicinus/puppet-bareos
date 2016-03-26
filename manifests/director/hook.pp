@@ -1,8 +1,7 @@
 
 define bareos::director::hook (
     $hook_name        = $title,
-    $for,
-    $default          = false,
+    $job,
     $when             = 'Always',
     $shell_commands   = [],
     $console_commands = [],
@@ -13,13 +12,7 @@ define bareos::director::hook (
 ) {
     include director
     
-    if $default {
-        $base = $director::jobdefs_conf
-    } else {
-        $base = $director::jobs_conf
-    }
-    
-    $dir = "${base}.d/${for}"
+    $dir = "${$director::jobs_conf}.d/${job}"
     
     file {"${dir}/${hook_name}.conf":
         ensure  => file,

@@ -9,6 +9,10 @@ define bareos::director::console (
     $includes     = [],
 ) {
     include director
+    
+    if $profile {
+        realize Profile[$profile]
+    }
 
     concat::fragment {"${director::consoles_conf}+console_${console_name}":
         target  => $director::consoles_conf,

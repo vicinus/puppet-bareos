@@ -1,5 +1,8 @@
 Schedule {
   Name = "<%= @schedule_name %>"
+  <%- if ! @enabled -%>
+  Enabled = yes
+  <%- end -%>
   <%- @runs.each do |run| -%>
   Run = <%= run %>
   <%- end -%>

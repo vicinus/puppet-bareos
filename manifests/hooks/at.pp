@@ -1,8 +1,7 @@
 
 define bareos::hooks::at (
     $file_name  = $title,
-    $for,
-    $default    = true,
+    $job,
     $when       = 'Always',
     $on         = 'client',
     $on_success = true,
@@ -13,8 +12,7 @@ define bareos::hooks::at (
     include hooks
     
     director::hook {"generic_hook_${title}":
-        for            => $for,
-        default        => $default,
+        job            => $job,
         shell_commands => ["${hooks::prefix}/${file_name}"],
         when           => $when,
         on             => $on,
