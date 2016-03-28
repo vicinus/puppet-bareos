@@ -6,7 +6,7 @@ define bareos::director::profile (
 ) {
     include director
     
-    $profile_name = $title,
+    $profile_name = $title
     
     concat::fragment {"${director::profile_conf}+${profile_name}":
         target  => $director::profile_conf,

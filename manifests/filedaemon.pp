@@ -17,10 +17,12 @@ class bareos::filedaemon (
 
     include global
     include repo
+    include bareos
 
     package {$package_name:
         ensure  => $global::package_ensure,
         require => $repo::require,
+        before  => File[$bareos::confdir],
     }
     
     ->

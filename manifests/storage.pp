@@ -18,10 +18,12 @@ class bareos::storage (
 
     include global
     include repo
+    include bareos
     
     package {$storage_package:
         ensure  => $global::package_ensure,
         require => $repo::require,
+        before  => File[$bareos::confdir],
     }
     
     ->

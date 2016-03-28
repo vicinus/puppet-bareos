@@ -13,10 +13,12 @@ class bareos::webui (
 
     include global
     include repo
+    include bareos
     
     package {$package_name:
         ensure  => $global::package_ensure,
         require => $repo::require,
+        before  => File[$bareos::confdir],
     }
     
     file {$data_dir:

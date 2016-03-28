@@ -4,8 +4,8 @@ Console {
   <%- if defined?(description) -%>
   Description = "<%= @description %>"
   <%- end -%>
-  <%- if defined?(profile) -%>
-  Profile = <%= profile.kind_of?(Array) ? profile.join(', ') : profile %>
+  <%- if defined?(@profile) -%>
+  Profile = <%= @profile.kind_of?(Array) ? @profile.join(', ') : @profile %>
   <%- end -%>
   <%- @acls.each do |(name, value)| -%>
   <%= name %> ACL = <%= value.kind_of?(Array) ? value.join(', ') : value %>

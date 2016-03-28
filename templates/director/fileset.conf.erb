@@ -18,8 +18,12 @@ FileSet {
       <%- end -%>
     }
     <%- end -%>
+    <%- if @includes.kind_of?(Array) -%>
     <%- @includes.each do |rule| -%>
     File = "<%= rule %>"
+    <%- end -%>
+    <%- else -%>
+    File = "<%= @includes %>"
     <%- end -%>
   }
   <%- end -%>
@@ -38,8 +42,12 @@ FileSet {
       <%- end -%>
     }
     <%- end -%>
+    <%- if @excludes.kind_of?(Array) -%>
     <%- @excludes.each do |rule| -%>
     File = "<%= rule %>"
+    <%- end -%>
+    <%- else -%>
+    File = "<%= @excludes %>"
     <%- end -%>
   }
   <%- end -%>
