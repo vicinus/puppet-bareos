@@ -4,6 +4,7 @@ define bareos::director::hook (
     $job,
     $when             = 'Always',
     $shell_commands   = [],
+    $ensure_shell     = false,
     $console_commands = [],
     $on               = 'client',
     $on_success       = true,
