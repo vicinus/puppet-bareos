@@ -4,13 +4,22 @@ class bareos::repo (
 ) {
 
     include global
+            
+    if $version == 'nightly' {
+        $repo_path = 'experimental/nightly'
+    } else {
+        $repo_path = "release/${version}"
+    }
+    
+    $bareos_repo_base = 'http://download.bareos.org/bareos'
 
     if $global::repo_manage {
     
         case $::osfamily {
             'Debian': {
+            
                 apt::source {$global::repo_name:
-                    location    => "http://download.bareos.org/bareos/release/${version}/${::operatingsystem}_${::operatingsystemmajrelease}.0/",
+                    location    => "${bareos_repo_base}/${repo_path}/${::operatingsystem}_${::operatingsystemmajrelease}.0/",
                     release     => '',
                     repos       => '/',
                     include_deb => true,
