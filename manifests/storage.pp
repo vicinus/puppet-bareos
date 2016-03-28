@@ -1,6 +1,7 @@
 
 class bareos::storage (
     $storage_name       = "${::hostname}-sd",
+    $port               = $params::storage_port,
     $director_name,
     $director_password,
     $max_conc_jobs      = 20,

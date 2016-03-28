@@ -1,5 +1,8 @@
 Storage {
   Name = "<%= @storage_name %>"
+  <%- if scope['params::storage_port'] != @port -%>
+  SD Port = <%= @port %>
+  <%- end -%>
   Plugin Directory = "<%= @plugins_dir %>"
   Plugin Names = "<%= @plugins.join(' ') %>"
   <%- @options.each do |(name, value)| -%>

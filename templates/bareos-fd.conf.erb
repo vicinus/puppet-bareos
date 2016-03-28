@@ -1,5 +1,8 @@
 FileDaemon {
   Name = "<%= @daemon_name %>"
+  <%- if scope['params::filedaemon_port'] != @port -%>
+  FD Port = <%= @port %>
+  <%- end -%>
   compatible = <%= @compatible ? 'yes' : 'no' %>
   Plugin Directory = "<%= @plugins_dir %>"
   Plugin Names = "<%= @plugins.join(' ') %>"

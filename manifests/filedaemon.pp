@@ -1,6 +1,7 @@
 
 class bareos::filedaemon (
     $daemon_name       = "${::hostname}-fd",
+    $port              = $params::filedaemon_port,
     $director_name,
     $director_password,
     $compatible        = false,

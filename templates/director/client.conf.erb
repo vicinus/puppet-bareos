@@ -4,6 +4,9 @@ Client {
   Enabled = yes
   <%- end -%>
   Address = "<%= @address %>"
+  <%- if scope['params::filedaemon_port'] != @port -%>
+  FD Port = <%= @port %>
+  <%- end -%>
   Password = "<%= @password %>"
   <%- if defined?(@catalog) -%>
   Catalog = "<%= @catalog %>"

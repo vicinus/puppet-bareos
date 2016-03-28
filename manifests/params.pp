@@ -1,8 +1,10 @@
 
 class bareos::params {
 
-    $director_port  = 9101
-    $dummy_password = 'NOPE NO PASSWORD HERE! Use password from console block!'
+    $director_port   = 9101
+    $filedaemon_port = 9102
+    $storage_port    = 9103
+    $dummy_password  = 'NOPE NO PASSWORD HERE! Use password from console block!'
 
     case $::osfamily {
         'Debian': {

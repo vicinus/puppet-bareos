@@ -2,12 +2,14 @@
 define bareos::director::client (
     $enabled  = true,  
     $address  = $::fqdn,
+    $port     = $params::filedaemon_port,
     $password,
     $catalog  = undef,
     $options  = {},
     $includes = [],
 ) {
     include director
+    include params
     
     $daemon_name = $title
     

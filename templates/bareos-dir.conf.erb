@@ -1,6 +1,8 @@
 Director {
   Name = "<%= @director_name %>"
+  <%- if scope['params::director_port'] != @port -%>
   Dir Port = <%= @port %>
+  <%- end -%>
   QueryFile = "<%= @query_file %>"
   Password = "<%= @director_password %>"
   <%- if (@load_backends) -%>
