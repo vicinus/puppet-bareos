@@ -11,7 +11,7 @@ define bareos::webui::director (
     
     concat::fragment {"${webui::directors_conf}+${director_name}":
         target  => $webui::directors_conf,
-        order   => '05',
+        order   => "05_${director_name}",
         content => template('bareos/webui/director.ini.erb'),
     }
 

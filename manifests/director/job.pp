@@ -66,7 +66,7 @@ define bareos::director::job (
     
     concat::fragment {"${director::jobs_conf}+${job_name}":
         target  => $director::jobs_conf,
-        order   => $order,
+        order   => "${order}_${job_name}",
         content => template('bareos/director/job.conf.erb'),
     }
 }

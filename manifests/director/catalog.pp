@@ -92,7 +92,7 @@ define bareos::director::catalog (
     $conf = $director::catalogs_conf
     concat::fragment {$fragment:
         target  => $conf,
-        order   => '05',
+        order   => "05_${catalog_name}",
         content => template('bareos/director/catalog.conf.erb'),
     }
 

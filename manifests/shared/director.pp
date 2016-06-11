@@ -9,7 +9,7 @@ define bareos::shared::director (
 ) {
     concat::fragment {"${target}+director_${$director_name}":
         target  => $target,
-        order   => $order,
+        order   => "${order}_${$director_name}",
         content => template('bareos/shared/director.conf.erb'),
     }
 }

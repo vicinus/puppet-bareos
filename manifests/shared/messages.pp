@@ -6,9 +6,9 @@ define bareos::shared::messages (
     $options       = {},
     $includes      = [],
 ) {
-    concat::fragment {"${target}+messages+${messages_name}":
+    concat::fragment {"${target}+messages_${messages_name}":
         target  => $target,
-        order   => $order,
+        order   => "${order}_${messages_name}",
         content => template('bareos/shared/messages.conf.erb'),
     }
 }

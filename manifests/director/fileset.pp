@@ -13,7 +13,7 @@ define bareos::director::fileset (
     
     concat::fragment {"${director::filesets_conf}+${fileset_name}":
         target  => $director::filesets_conf,
-        order   => '05',
+        order   => "05_${fileset_name}",
         content => template('bareos/director/fileset.conf.erb'),
     }
 }

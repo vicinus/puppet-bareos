@@ -13,7 +13,7 @@ define bareos::director::storage (
     
     concat::fragment {"${director::storages_conf}+${storage_name}":
         target  => $director::storages_conf,
-        order   => '05',
+        order   => "05_${storage_name}",
         content => template('bareos/director/storage.conf.erb'),
     }
 }

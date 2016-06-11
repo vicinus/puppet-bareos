@@ -14,7 +14,7 @@ define bareos::bconsole::director (
     
     concat::fragment {"${bconsole::conf}+director_${director_name}":
         target  => $bconsole::conf,
-        order   => '05',
+        order   => "05_${director_name}",
         content => template('bareos/bconsole/director.conf.erb'),
     }
 

@@ -11,7 +11,7 @@ define bareos::filedaemon::director (
         director_name => $director_name,
         password      => $password,
         target        => $filedaemon::conf,
-        order         => '05',
+        order         => "05_${title}",
         options       => $options,
     }
 

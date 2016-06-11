@@ -20,7 +20,7 @@ define bareos::director::pool (
     
     concat::fragment {"${director::pools_conf}+${pool_name}":
         target  => $director::pools_conf,
-        order   => '05',
+        order   => "05_${pool_name}",
         content => template('bareos/director/pool.conf.erb'),
     }
 }

@@ -15,7 +15,7 @@ define bareos::storage::device (
     
     concat::fragment {"${storage::devices_conf}+${device_name}":
         target  => $storage::devices_conf,
-        order   => '05',
+        order   => "05_${device_name}",
         content => template('bareos/storage/device.conf.erb'),
     }
 }

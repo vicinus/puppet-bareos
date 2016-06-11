@@ -19,7 +19,7 @@ define bareos::director::client (
     
     concat::fragment {"${director::clients_conf}+${daemon_name}":
         target  => $director::clients_conf,
-        order   => '05',
+        order   => "05_${daemon_name}",
         content => template('bareos/director/client.conf.erb'),
     }
 }

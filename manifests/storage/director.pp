@@ -11,7 +11,7 @@ define bareos::storage::director (
         director_name => $director_name,
         password      => $password,
         target        => $storage::conf,
-        order         => '05',
+        order         => "05_${title}",
         options       => $options,
     }
 

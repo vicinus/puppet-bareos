@@ -9,7 +9,7 @@ define bareos::bconsole::console (
 
     concat::fragment {"${bconsole::conf}+console_${console_name}":
         target  => $bconsole::conf,
-        order   => '10',
+        order   => "10_${console_name}",
         content => template('bareos/bconsole/console.conf.erb'),
     }
 }
