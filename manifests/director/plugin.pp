@@ -3,13 +3,12 @@ class bareos::director::plugin (
     $python_package = 'bareos-director-python-plugin',
 ) {
 
-    include global
-    include repo
-    include director
+    include bareos::global
+    include bareos::repo
 
     @package {$python_package:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
     }
 
 }

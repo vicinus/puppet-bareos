@@ -1,12 +1,12 @@
 
-class bareos::catalog::mysql inherits params {
+class bareos::director::catalog::mysql inherits bareos::params {
 
-    include global
-    include repo
+    include bareos::global
+    include bareos::repo
     
-    package {$params::catalog_package['mysql']:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+    package {$bareos::params::catalog_package['mysql']:
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
     }
 
 }

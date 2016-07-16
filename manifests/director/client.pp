@@ -1,24 +1,25 @@
 
 define bareos::director::client (
-    $enabled  = true,  
-    $address  = $::fqdn,
-    $port     = $params::filedaemon_port,
     $password,
+    $enabled  = true,
+    $address  = $::fqdn,
+    $port     = $bareos::params::filedaemon_port,
     $catalog  = undef,
     $options  = {},
     $includes = [],
 ) {
-    include director
-    include params
-    
+
+    include bareos::params
+    include bareos::director
+
     $daemon_name = $title
-    
+
     if $catalog {
         realize Catalog[$catalog]
     }
-    
-    concat::fragment {"${director::clients_conf}+${daemon_name}":
-        target  => $director::clients_conf,
+
+    concat::fragment {"${bareos::director::clients_conf}+${daemon_name}":
+        target  => $bareos::director::clients_conf,
         order   => "05_${daemon_name}",
         content => template('bareos/director/client.conf.erb'),
     }

@@ -1,29 +1,29 @@
 
 class bareos::storage (
     $storage_name       = "${::hostname}-sd",
-    $port               = $params::storage_port,
+    $port               = $bareos::params::storage_port,
     $director_name,
     $director_password,
     $max_conc_jobs      = 20,
     $default_messages   = true,
-    $plugins_dir        = $params::plugins_dir,
+    $plugins_dir        = $bareos::params::plugins_dir,
     $plugins            = [],
     $options            = {},
-    $user               = $params::user,
-    $group              = $params::group,
-    $conf               = $params::storage_conf,
-    $conf_d             = $params::storage_conf_d,
-    $package_name       = $params::storage_package,
-    $service_name       = $params::storage_service,
-) inherits params {
+    $user               = $bareos::params::user,
+    $group              = $bareos::params::group,
+    $conf               = $bareos::params::storage_conf,
+    $conf_d             = $bareos::params::storage_conf_d,
+    $package_name       = $bareos::params::storage_package,
+    $service_name       = $bareos::params::storage_service,
+) inherits bareos::params {
 
-    include global
-    include repo
     include bareos
+    include bareos::global
+    include bareos::repo
     
-    package {$storage_package:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+    package {$package_name:
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
         before  => File[$bareos::confdir],
     }
     
@@ -54,7 +54,7 @@ class bareos::storage (
     
     if $default_messages {
         storage::messages {'Standard':
-            options       => {
+            options => {
                 'Director' => "${director_name} = all",
             },
         }

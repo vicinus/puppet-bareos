@@ -4,12 +4,12 @@ define bareos::director::profile (
     $options      = {},
     $includes     = [],
 ) {
-    include director
+    include bareos::director
     
     $profile_name = $title
     
-    concat::fragment {"${director::profile_conf}+${profile_name}":
-        target  => $director::profile_conf,
+    concat::fragment {"${bareos::director::profile_conf}+${profile_name}":
+        target  => $bareos::director::profile_conf,
         order   => "05_${profile_name}",
         content => template('bareos/director/profile.conf.erb'),
     }

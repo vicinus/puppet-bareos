@@ -6,20 +6,20 @@ define bareos::director::pool (
     $options  = {},
     $includes = [],
 ) {
-    include director
+    include bareos::director
     
     $pool_name = $title
     
     if $catalog {
-        realize Catalog[$catalog]
+        realize Bareos::Director::Catalog[$catalog]
     }
     
     if $storage {
-        realize Storage[$storage]
+        realize Bareos::Director::Storage[$storage]
     }
     
-    concat::fragment {"${director::pools_conf}+${pool_name}":
-        target  => $director::pools_conf,
+    concat::fragment {"${bareos::director::pools_conf}+${pool_name}":
+        target  => $bareos::director::pools_conf,
         order   => "05_${pool_name}",
         content => template('bareos/director/pool.conf.erb'),
     }

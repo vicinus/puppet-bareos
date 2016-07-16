@@ -5,7 +5,7 @@ define bareos::director::job (
     $is_default = false,
     $base       = undef,
     $fileset    = undef,
-    $schedule   = undef,
+    $scheduled  = undef,
     $pool       = undef,
     $messages   = undef,
     $storage    = undef,
@@ -13,14 +13,14 @@ define bareos::director::job (
     $options    = {},
     $includes   = [],
 ) {
-    include director
+    include bareos::director
 
     $job_name   = $title
     
-    $conf_root = "${director::jobs_conf}.d"
+    $conf_root = "${bareos::director::jobs_conf}.d"
     $conf_d = "${conf_root}/${job_name}"
     
-    file {"${conf_d}":
+    file {$conf_d:
         ensure  => directory,
         owner   => $director::user,
         group   => $director::group,
@@ -31,31 +31,31 @@ define bareos::director::job (
     }
     
     if $base {
-        realize Job[$base]
+        realize Bareos::Director::Job[$base]
     }
     
     if $fileset {
-        realize Fileset[$fileset]
+        realize Bareos::Director::Fileset[$fileset]
     }
     
-    if $schedule {
-        realize Director::Schedule[$schedule]
+    if $scheduled {
+        realize Bareos::Director::Schedule[$scheduled]
     }
     
     if $pool {
-        realize Pool[$pool]
+        realize Bareos::Director::Pool[$pool]
     }
     
     if $messages {
-        realize Messages[$messages]
+        realize Bareos::Director::Messages[$messages]
     }
     
     if $storage {
-        realize Storage[$storage]
+        realize Bareos::Director::Storage[$storage]
     }
     
     if $client {
-        realize Client[$client]
+        realize Bareos::Director::Client[$client]
     }
     
     if $is_default {
@@ -64,8 +64,8 @@ define bareos::director::job (
         $order = '06'
     }
     
-    concat::fragment {"${director::jobs_conf}+${job_name}":
-        target  => $director::jobs_conf,
+    concat::fragment {"${bareos::director::jobs_conf}+${job_name}":
+        target  => $bareos::director::jobs_conf,
         order   => "${order}_${job_name}",
         content => template('bareos/director/job.conf.erb'),
     }

@@ -1,22 +1,22 @@
 
 class bareos::bconsole (
     $director_name = undef,
-    $password      = $params::dummy_password,
+    $password      = $bareos::params::dummy_password,
     $address       = undef,
-    $port          = $params::director_port,
-    $user          = $params::user,
-    $group         = $params::group,
-    $conf          = $params::bconsole_conf,
-    $package_name  = $params::bconsole_package,
-) inherits params {
+    $port          = $bareos::params::director_port,
+    $user          = $bareos::params::user,
+    $group         = $bareos::params::group,
+    $conf          = $bareos::params::bconsole_conf,
+    $package_name  = $bareos::params::bconsole_package,
+) inherits bareos::params {
 
-    include global
-    include repo
     include bareos
+    include bareos::global
+    include bareos::repo
     
     package {$package_name:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
         before  => File[$bareos::confdir],
     }
     

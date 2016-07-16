@@ -1,21 +1,21 @@
 
 define bareos::director::console (
-    $console_name = $title,
     $password,
+    $console_name = $title,
     $profile      = undef,
     $description  = undef,
     $acls         = {},
     $options      = {},
     $includes     = [],
 ) {
-    include director
+    include bareos::director
     
     if $profile {
-        realize Profile[$profile]
+        realize Bareos::Director::Profile[$profile]
     }
 
-    concat::fragment {"${director::consoles_conf}+console_${console_name}":
-        target  => $director::consoles_conf,
+    concat::fragment {"${bareos::director::consoles_conf}+console_${console_name}":
+        target  => $bareos::director::consoles_conf,
         order   => "05_${console_name}",
         content => template('bareos/director/console.conf.erb'),
     }

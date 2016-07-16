@@ -1,28 +1,28 @@
 
 class bareos::filedaemon (
     $daemon_name       = "${::hostname}-fd",
-    $port              = $params::filedaemon_port,
+    $port              = $bareos::params::filedaemon_port,
     $director_name,
     $director_password,
     $compatible        = false,
     $default_messages  = true,
     $options           = {},
-    $plugins_dir       = $params::plugins_dir,
+    $plugins_dir       = $bareos::params::plugins_dir,
     $plugins           = [],
-    $user              = $params::user,
-    $group             = $params::group,
-    $conf              = $params::filedaemon_conf,
-    $package_name      = $params::filedaemon_package,
-    $service_name      = $params::filedaemon_service,
-) inherits params {
+    $user              = $bareos::params::user,
+    $group             = $bareos::params::group,
+    $conf              = $bareos::params::filedaemon_conf,
+    $package_name      = $bareos::params::filedaemon_package,
+    $service_name      = $bareos::params::filedaemon_service,
+) inherits bareos::params {
 
-    include global
-    include repo
     include bareos
+    include bareos::global
+    include bareos::repo
 
     package {$package_name:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
         before  => File[$bareos::confdir],
     }
     
@@ -53,7 +53,7 @@ class bareos::filedaemon (
     
     if $default_messages {
         filedaemon::messages {'Standard':
-            options       => {
+            options => {
                 'Director' => "${director_name} = all, !skipped, !restored",
             },
         }

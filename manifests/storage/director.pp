@@ -1,16 +1,16 @@
 
 define bareos::storage::director (
-    $director_name = $title,
     $password,
+    $director_name = $title,
     $options       = {},
 ) {
 
-    include storage
+    include bareos::storage
 
-    shared::director {"storage_${title}":
+    bareos::shared::director {"storage_${title}":
         director_name => $director_name,
         password      => $password,
-        target        => $storage::conf,
+        target        => $bareos::storage::conf,
         order         => "05_${title}",
         options       => $options,
     }

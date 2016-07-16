@@ -16,7 +16,7 @@ class bareos::params {
             $plugins_dir = "${libdir}/plugins"
             $scripts_dir = "${libdir}/scripts"
             
-            $systemd = $::lsbmajdistrelease >= 8
+            $systemd = versioncmp($::lsbmajdistrelease, '8') >= 0
             
             $filedaemon_package = 'bareos-filedaemon'
             $filedaemon_service = 'bareos-fd'

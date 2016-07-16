@@ -7,12 +7,12 @@ define bareos::director::fileset (
     $exclude_options = {},
     $conf_includes   = [],
 ) {
-    include director
+    include bareos::director
     
     $fileset_name    = $title
     
-    concat::fragment {"${director::filesets_conf}+${fileset_name}":
-        target  => $director::filesets_conf,
+    concat::fragment {"${bareos::director::filesets_conf}+${fileset_name}":
+        target  => $bareos::director::filesets_conf,
         order   => "05_${fileset_name}",
         content => template('bareos/director/fileset.conf.erb'),
     }

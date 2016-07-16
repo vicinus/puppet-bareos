@@ -1,8 +1,8 @@
 
 define bareos::shared::director (
-    $director_name = $title,
     $password,
     $target,
+    $director_name = $title,
     $order         = '06',
     $options       = {},
     $includes      = [],

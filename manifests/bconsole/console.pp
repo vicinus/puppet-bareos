@@ -1,13 +1,13 @@
 
 define bareos::bconsole::console (
-    $console_name = $title,
     $password,
+    $console_name = $title,
     $director     = undef,
     $options      = {},
 ) {
-    include bconsole
+    include bareos::bconsole
 
-    concat::fragment {"${bconsole::conf}+console_${console_name}":
+    concat::fragment {"${bareos::bconsole::conf}+console_${console_name}":
         target  => $bconsole::conf,
         order   => "10_${console_name}",
         content => template('bareos/bconsole/console.conf.erb'),

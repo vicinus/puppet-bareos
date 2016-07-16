@@ -1,8 +1,8 @@
 
 class bareos::hooks (
-    $prefix = $params::confdir,
-    $user   = $params::user,
-    $group  = $params::group,
-) inherits params {
+    $prefix = $bareos::params::confdir,
+    $user   = $bareos::params::user,
+    $group  = $bareos::params::group,
+) inherits bareos::params {
 
 }

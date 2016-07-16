@@ -1,7 +1,7 @@
 
 define bareos::director::hook (
-    $hook_name        = $title,
     $job,
+    $hook_name        = $title,
     $when             = 'Always',
     $shell_commands   = [],
     $ensure_shell     = false,
@@ -11,17 +11,17 @@ define bareos::director::hook (
     $on_failure       = false,
     $fail_job         = false,
 ) {
-    include director
+    include bareos::director
     
-    $dir = "${$director::jobs_conf}.d/${job}"
+    $dir = "${$bareos::director::jobs_conf}.d/${job}"
     
     file {"${dir}/${hook_name}.conf":
         ensure  => file,
-        owner   => $director::user,
-        group   => $director::group,
+        owner   => $bareos::director::user,
+        group   => $bareos::director::group,
         mode    => '0600',
         content => template('bareos/director/hook.conf.erb'),
         require => File[$dir],
-        notify  => Service[$director::service_name],
+        notify  => Service[$bareos::director::service_name],
     }
 }

@@ -1,7 +1,7 @@
 
 define bareos::shared::messages (
-    $messages_name = $title,
     $target,
+    $messages_name = $title,
     $order         = '06',
     $options       = {},
     $includes      = [],

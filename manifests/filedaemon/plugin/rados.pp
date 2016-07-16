@@ -1,18 +1,18 @@
 
 class bareos::filedaemon::plugin::rados (
-    $package_name = $plugin::rados_package
-) inherits plugin {
+    $package_name = $bareos::filedaemon::plugin::rados_package
+) inherits bareos::filedaemon::plugin {
 
-    if $package_name == $plugin::rados_package {
+    if $package_name == $bareos::filedaemon::plugin::rados_package {
         realize Package[$package_name]
     } else {
 
-        include global
-        include repo
+        include bareos::global
+        include bareos::repo
     
         package {$package_name:
-            ensure  => $global::package_ensure,
-            require => $repo::require,
+            ensure  => $bareos::global::package_ensure,
+            require => $bareos::repo::require,
         }
     }
 

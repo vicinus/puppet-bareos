@@ -1,18 +1,18 @@
 
 class bareos::filedaemon::plugin::python (
-    $package_name = $plugin::python_package
-) inherits plugin {
+    $package_name = $bareos::filedaemon::plugin::python_package
+) inherits bareos::filedaemon::plugin {
 
-    if $package_name == $plugin::python_package {
+    if $package_name == $bareos::filedaemon::plugin::python_package {
         realize Package[$package_name]
     } else {
 
-        include global
-        include repo
+        include bareos::global
+        include bareos::repo
     
         package {$package_name:
-            ensure  => $global::package_ensure,
-            require => $repo::require,
+            ensure  => $bareos::global::package_ensure,
+            require => $bareos::repo::require,
         }
     }
 

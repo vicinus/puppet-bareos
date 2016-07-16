@@ -1,16 +1,16 @@
 
 define bareos::webui::director (
+    $address,
     $director_name = $title,
     $enabled       = true,
-    $address,
-    $port          = $params::director_port,
+    $port          = $bareos::params::director_port,
 ) {
 
-    include params
-    include webui
+    include bareos::params
+    include bareos::webui
     
-    concat::fragment {"${webui::directors_conf}+${director_name}":
-        target  => $webui::directors_conf,
+    concat::fragment {"${bareos::webui::directors_conf}+${director_name}":
+        target  => $bareos::webui::directors_conf,
         order   => "05_${director_name}",
         content => template('bareos/webui/director.ini.erb'),
     }

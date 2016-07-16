@@ -1,7 +1,7 @@
 
 class bareos (
-    $confdir = $params::confdir,
-) inherits params {
+    $confdir = $bareos::params::confdir,
+) inherits bareos::params {
 
     file {$confdir:
         ensure => directory,

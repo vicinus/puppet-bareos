@@ -1,22 +1,22 @@
 
 class bareos::webui (
-    $package_name   = $params::webui_package,
-    $profile_name   = $params::webui_profile_name,
+    $package_name   = $bareos::params::webui_package,
+    $profile_name   = $bareos::params::webui_profile_name,
     $manage_profile = false,
-    $conf_d         = $params::webui_conf_d,
-    $directors_conf = $params::webui_directors_conf,
-    $data_dir       = $params::webui_data_dir,
-    $public_dir     = $params::webui_public_dir,
-    $user           = $params::webui_user,
-    $group          = $params::webui_group,
-) inherits params {
+    $conf_d         = $bareos::params::webui_conf_d,
+    $directors_conf = $bareos::params::webui_directors_conf,
+    $data_dir       = $bareos::params::webui_data_dir,
+    $public_dir     = $bareos::params::webui_public_dir,
+    $user           = $bareos::params::webui_user,
+    $group          = $bareos::params::webui_group,
+) inherits bareos::params {
 
-    include global
-    include repo
+    include bareos::global
+    include bareos::repo
     
     package {$package_name:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
     }
     
     file {$data_dir:
@@ -28,10 +28,10 @@ class bareos::webui (
     }
     
     file {$public_dir:
-        ensure => directory,
-        owner  => $user,
-        group  => $group,
-        mode   => '0755',
+        ensure  => directory,
+        owner   => $user,
+        group   => $group,
+        mode    => '0755',
         require => File[$data_dir],
     }
     

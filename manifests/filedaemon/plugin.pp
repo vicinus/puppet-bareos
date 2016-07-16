@@ -1,7 +1,7 @@
 
 class bareos::filedaemon::plugin (
     $python_package    = 'bareos-filedaemon-python-plugin',
-    $bpipe_package     = $filedaemon::package_name,
+    $bpipe_package     = $bareos::filedaemon::package_name,
     $ldap_package      = 'bareos-filedaemon-ldap-python-plugin',
     $ceph_package      = 'bareos-filedaemon-ceph-plugin',
     $rados_package     = 'bareos-filedaemon-ceph-plugin',
@@ -9,9 +9,9 @@ class bareos::filedaemon::plugin (
     $vmware_package    = 'bareos-vmware-plugin',
 ) {
 
-    include global
-    include repo
-    include filedaemon
+    include bareos::global
+    include bareos::repo
+    include bareos::filedaemon
     
     $packages = [
         $python_package,
@@ -22,8 +22,8 @@ class bareos::filedaemon::plugin (
     ]
 
     @package {$packages:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
     }
 
 }

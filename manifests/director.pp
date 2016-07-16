@@ -2,28 +2,28 @@
 class bareos::director (
     $director_name,
     $director_password,
-    $port               = $params::director_port,
-    $query_file         = $params::director_query_file,
+    $port               = $bareos::params::director_port,
+    $query_file         = $bareos::params::director_query_file,
     $load_backends      = false,
-    $backend_dir        = $params::director_backend_dir,
-    $plugins_dir        = $params::plugins_dir,
+    $backend_dir        = $bareos::params::director_backend_dir,
+    $plugins_dir        = $bareos::params::plugins_dir,
     $plugins            = [],
     $options            = {},
-    $user               = $params::user,
-    $group              = $params::group,
-    $conf               = $params::director_conf,
-    $conf_d             = $params::director_conf_d,
-    $package_name       = $params::director_package,
-    $service_name       = $params::director_service,
-) inherits params {
+    $user               = $bareos::params::user,
+    $group              = $bareos::params::group,
+    $conf               = $bareos::params::director_conf,
+    $conf_d             = $bareos::params::director_conf_d,
+    $package_name       = $bareos::params::director_package,
+    $service_name       = $bareos::params::director_service,
+) inherits bareos::params {
 
-    include global
-    include repo
     include bareos
+    include bareos::global
+    include bareos::repo
     
     package {$package_name:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
         before  => File[$bareos::confdir],
     }
     

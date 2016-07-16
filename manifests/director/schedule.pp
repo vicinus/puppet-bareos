@@ -5,12 +5,12 @@ define bareos::director::schedule (
     $options       = {},
     $includes      = [],
 ) {
-    include director
+    include bareos::director
     
     $schedule_name = $title
     
-    concat::fragment {"${director::schedules_conf}+${schedule_name}":
-        target  => $director::schedules_conf,
+    concat::fragment {"${bareos::director::schedules_conf}+${schedule_name}":
+        target  => $bareos::director::schedules_conf,
         order   => "05_${schedule_name}",
         content => template('bareos/director/schedule.conf.erb'),
     }

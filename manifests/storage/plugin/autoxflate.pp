@@ -1,16 +1,16 @@
 
 class bareos::storage::plugin::autoxflate (
-    $package_name = $plugin::autoxflate_package
-) inherits plugin {
+    $package_name = $bareos::storage::plugin::autoxflate_package
+) inherits bareos::storage::plugin {
     
-    if $package_name != $plugin::autoxflate_package {
+    if $package_name != $bareos::storage::plugin::autoxflate_package {
 
-        include global
-        include repo
+        include bareos::global
+        include bareos::repo
 
         package {$package_name:
-            ensure  => $global::package_ensure,
-            require => $repo::require,
+            ensure  => $bareos::global::package_ensure,
+            require => $bareos::repo::require,
         }
     }
     

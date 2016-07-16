@@ -1,18 +1,18 @@
 
 class bareos::filedaemon::plugin::ldap (
-    $package_name = $plugin::ldap_package
-) inherits plugin {
+    $package_name = $bareos::filedaemon::plugin::ldap_package
+) inherits bareos::filedaemon::plugin {
 
-    if $package_name == $plugin::ldap_package {
+    if $package_name == $bareos::filedaemon::plugin::ldap_package {
         realize Package[$package_name]
     } else {
 
-        include global
-        include repo
+        include bareos::global
+        include bareos::repo
     
         package {$package_name:
-            ensure  => $global::package_ensure,
-            require => $repo::require,
+            ensure  => $bareos::global::package_ensure,
+            require => $bareos::repo::require,
         }
     }
 

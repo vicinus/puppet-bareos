@@ -8,19 +8,20 @@ define bareos::director::catalog (
     $db_user      = undef,
     $db_password  = undef,
     $options      = {},
-    $data_dir     = $params::datadir,
-    $scripts_dir  = $params::scripts_dir,
+    $data_dir     = $bareos::params::datadir,
+    $scripts_dir  = $bareos::params::scripts_dir,
     $includes     = [],
 ) {
-    include params
-    include director
+
+    include bareos::params
+    include bareos::director
     
     $catalog_name = $title
     
-    $fragment = "${director::catalogs_conf}+${catalog_name}"
+    $fragment = "${bareos::director::catalogs_conf}+${catalog_name}"
     $cmd_require = [
-        Package[$director::package_name],
-        Concat[$director::catalogs_conf],
+        Package[$bareos::director::package_name],
+        Concat[$bareos::director::catalogs_conf],
     ]
     
     $prefix        = "${catalog_name}_with_${db_driver}_for_${db_name}_do_"
@@ -29,7 +30,7 @@ define bareos::director::catalog (
     $grant_perms   = "${prefix}grant"
     
     if $db_driver == 'sqlite3' {
-        include catalog::sqlite3
+        include bareos::director::catalog::sqlite3
     
         exec {$create_db:
             command   => "'${scripts_dir}/create_bareos_database' sqlite3",
@@ -56,22 +57,32 @@ define bareos::director::catalog (
         }
     
     } elsif $db_driver == 'mysql' {
-        include catalog::mysql
+        include bareos::director::catalog::mysql
         
         if $db_address {
             $host_param =  "'--host=${db_address}'"
+        } else {
+            $host_param = ''
         }
         if $db_port {
             $port_param = "'--port=${db_port}'"
+        } else {
+            $port_param = ''
         }
         if $db_user {
             $user_param = "'--user=${db_user}'"
+        } else {
+            $user_param = ''
         }
         if $db_password {
             $pass_param = "'--password=${db_password}'"
+        } else {
+            $pass_param = ''
         }
         if $db_socket {
             $socket_param = "'--socket=${db_socket}'"
+        } else {
+            $socket_param = ''
         }
     
         exec {$create_tables:
@@ -83,7 +94,7 @@ define bareos::director::catalog (
         }
     
     } elsif $db_driver == 'postgresql' {
-        include catalog::postgresql
+        include bareos::director::catalog::postgresql
         notify {"database ${db_name} cannot be created automatically in ${db_driver}!":}
     } else {
         fail('Unsupported database driver! Open a Pull Request on Github if you need this!')

@@ -1,11 +1,11 @@
 
-class bareos::catalog::sqlite3 inherits params {
+class bareos::director::catalog::sqlite3 inherits bareos::params {
 
-    include global
-    include repo
+    include bareos::global
+    include bareos::repo
     
-    package {$params::catalog_package['sqlite3']:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+    package {$bareos::params::catalog_package['sqlite3']:
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
     }
 }

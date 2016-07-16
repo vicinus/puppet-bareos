@@ -1,11 +1,11 @@
 
-class bareos::catalog::postgresql inherits params {
+class bareos::director::catalog::postgresql inherits bareos::params {
 
-    include global
-    include repo
+    include bareos::global
+    include bareos::repo
     
-    package {$params::catalog_package['postgresql']:
-        ensure  => $global::package_ensure,
-        require => $repo::require,
+    package {$bareos::params::catalog_package['postgresql']:
+        ensure  => $bareos::global::package_ensure,
+        require => $bareos::repo::require,
     }
 }

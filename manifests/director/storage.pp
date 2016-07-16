@@ -7,12 +7,12 @@ define bareos::director::storage (
     $options      = {},
     $includes     = [],
 ) {
-    include director
+    include bareos::director
     
     $storage_name = $title
     
-    concat::fragment {"${director::storages_conf}+${storage_name}":
-        target  => $director::storages_conf,
+    concat::fragment {"${bareos::director::storages_conf}+${storage_name}":
+        target  => $bareos::director::storages_conf,
         order   => "05_${storage_name}",
         content => template('bareos/director/storage.conf.erb'),
     }
