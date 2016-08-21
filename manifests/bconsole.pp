@@ -36,7 +36,7 @@ class bareos::bconsole (
     
     if $director_name {
 
-        bconsole::director {$director_name:
+        bareos::bconsole::director {$director_name:
             password => $password,
             address  => $address,
             port     => $port,

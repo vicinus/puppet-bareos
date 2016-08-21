@@ -90,7 +90,7 @@ define bareos::director::catalog (
             refreshonly => true,
             require     => $cmd_require,
             subscribe   => Concat::Fragment[$fragment],
-            notify      => Service[$director::service_name],
+            notify      => Service[$bareos::director::service_name],
         }
     
     } elsif $db_driver == 'postgresql' {
@@ -100,7 +100,7 @@ define bareos::director::catalog (
         fail('Unsupported database driver! Open a Pull Request on Github if you need this!')
     }
     
-    $conf = $director::catalogs_conf
+    $conf = $bareos::director::catalogs_conf
     concat::fragment {$fragment:
         target  => $conf,
         order   => "05_${catalog_name}",

@@ -47,12 +47,12 @@ class bareos::filedaemon (
         content => template('bareos/bareos-fd.conf.erb'),
     }
     
-    filedaemon::director {$director_name:
+    bareos::filedaemon::director {$director_name:
         password => $director_password,
     }
     
     if $default_messages {
-        filedaemon::messages {'Standard':
+        bareos::filedaemon::messages {'Standard':
             options => {
                 'Director' => "${director_name} = all, !skipped, !restored",
             },

@@ -1,6 +1,6 @@
 Storage {
   Name = "<%= @storage_name %>"
-  <%- if scope['params::storage_port'] != @port -%>
+  <%- if scope['bareos::params::storage_port'] != @port -%>
   SD Port = <%= @port %>
   <%- end -%>
   Plugin Directory = "<%= @plugins_dir %>"

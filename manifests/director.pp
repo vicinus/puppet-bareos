@@ -57,7 +57,7 @@ class bareos::director (
         require => Package[$package_name],
     }
     
-    file {$params::datadir:
+    file {$bareos::params::datadir:
         ensure  => directory,
         owner   => $user,
         group   => $group,
@@ -67,61 +67,61 @@ class bareos::director (
     
     # Clients
     $clients_conf = "${conf_d}/clients.conf"
-    director::bresource {'clients':
+    bareos::director::bresource {'clients':
         conf => $clients_conf,
     }
 
     # Storages
     $storages_conf = "${conf_d}/storages.conf"
-    director::bresource {'storages':
+    bareos::director::bresource {'storages':
         conf => $storages_conf,
     }
     
     # Jobs
     $jobs_conf = "${conf_d}/jobs.conf"
-    director::bresource {'jobs':
+    bareos::director::bresource {'jobs':
         conf => $jobs_conf,
     }
 
     # Catalogs
     $catalogs_conf = "${conf_d}/catalogs.conf"
-    director::bresource {'catalogs':
+    bareos::director::bresource {'catalogs':
         conf => $catalogs_conf,
     }
 
     # Pools
     $pools_conf = "${conf_d}/pools.conf"
-    director::bresource {'pools':
+    bareos::director::bresource {'pools':
         conf => $pools_conf,
     }
 
     # Schedules
     $schedules_conf = "${conf_d}/schedules.conf"
-    director::bresource {'schedules':
+    bareos::director::bresource {'schedules':
         conf => $schedules_conf,
     }
 
     # Messages
     $messages_conf = "${conf_d}/messages.conf"
-    director::bresource {'messages':
+    bareos::director::bresource {'messages':
         conf => $messages_conf,
     }
     
     # Profiles
     $profile_conf = "${conf_d}/profile.conf"
-    director::bresource {'profile':
+    bareos::director::bresource {'profile':
         conf => $profile_conf,
     }
 
     # Consoles
     $consoles_conf = "${conf_d}/consoles.conf"
-    director::bresource {'console':
+    bareos::director::bresource {'console':
         conf => $consoles_conf,
     }
 
     # Filesets
     $filesets_conf = "${conf_d}/filesets.conf"
-    director::bresource {'fileset':
+    bareos::director::bresource {'fileset':
         conf => $filesets_conf,
     }
 }

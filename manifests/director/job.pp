@@ -22,8 +22,8 @@ define bareos::director::job (
     
     file {$conf_d:
         ensure  => directory,
-        owner   => $director::user,
-        group   => $director::group,
+        owner   => $bareos::director::user,
+        group   => $bareos::director::group,
         mode    => '0755',
         purge   => true,
         recurse => true,

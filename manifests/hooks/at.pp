@@ -11,7 +11,7 @@ define bareos::hooks::at (
 
     include bareos::hooks
 
-    director::hook {"generic_hook_${title}":
+    bareos::director::hook {"generic_hook_${title}":
         job            => $job,
         shell_commands => ["${bareos::hooks::prefix}/${file_name}"],
         when           => $when,

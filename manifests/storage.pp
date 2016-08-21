@@ -48,12 +48,12 @@ class bareos::storage (
         content => template('bareos/bareos-sd.conf.erb'),
     }
     
-    storage::director {$director_name:
+    bareos::storage::director {$director_name:
         password => $director_password,
     }
     
     if $default_messages {
-        storage::messages {'Standard':
+        bareos::storage::messages {'Standard':
             options => {
                 'Director' => "${director_name} = all",
             },

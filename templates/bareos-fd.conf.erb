@@ -1,6 +1,6 @@
 FileDaemon {
   Name = "<%= @daemon_name %>"
-  <%- if scope['params::filedaemon_port'] != @port -%>
+  <%- if scope['bareos::params::filedaemon_port'] != @port -%>
   FD Port = <%= @port %>
   <%- end -%>
   compatible = <%= @compatible ? 'yes' : 'no' %>

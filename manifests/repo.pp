@@ -13,7 +13,7 @@ class bareos::repo (
     
     $bareos_repo_base = 'http://download.bareos.org/bareos'
 
-    if $global::repo_manage {
+    if $bareos::global::repo_manage {
     
         case $::osfamily {
             'Debian': {
