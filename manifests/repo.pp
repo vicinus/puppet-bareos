@@ -11,7 +11,8 @@ class bareos::repo (
         $repo_path = "release/${version}"
     }
     
-    $bareos_repo_base = 'http://download.bareos.org/bareos'
+    $bareos_repo_host = 'download.bareos.org'
+    $bareos_repo_base = "http://${bareos_repo_host}/bareos"
 
     if $bareos::global::repo_manage {
     
@@ -34,6 +35,13 @@ class bareos::repo (
                 ::apt::setting {$setting:
                     ensure  => present,
                     content => template('apt/_header.erb', 'apt/source.list.erb'),
+                }
+
+                ->
+
+                ::apt::pin {$bareos::global::repo_name:
+                    priority => 1000,
+                    origin   => $bareos_repo_host,
                 }
                 
                 $require = Apt::Setting[$setting]
