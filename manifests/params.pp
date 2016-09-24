@@ -19,12 +19,12 @@ class bareos::params {
             $systemd = versioncmp($::lsbmajdistrelease, '8') >= 0
             
             $filedaemon_package = 'bareos-filedaemon'
-            $filedaemon_service = 'bareos-fd'
+            $filedaemon_service = 'bareos-filedaemon'
             $filedaemon_systemd = $filedaemon_package
             $filedaemon_conf    = "${confdir}/bareos-fd.conf"
 
             $director_package     = 'bareos-director'
-            $director_service     = 'bareos-dir'
+            $director_service     = 'bareos-director'
             $director_systemd     = $director_package
             $director_conf        = "${confdir}/bareos-dir.conf"
             $director_conf_d      = "${confdir}/bareos-dir.d"
@@ -32,7 +32,7 @@ class bareos::params {
             $director_query_file  = "${libdir}/scripts/query.sql"
             
             $storage_package = 'bareos-storage'
-            $storage_service = 'bareos-sd'
+            $storage_service = 'bareos-storage'
             $storage_systemd = $storage_package
             $storage_conf    = "${confdir}/bareos-sd.conf"
             $storage_conf_d  = "${confdir}/bareos-sd.d"
