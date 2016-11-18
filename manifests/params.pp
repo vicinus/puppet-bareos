@@ -41,7 +41,7 @@ class bareos::params {
             $bconsole_conf    = "${confdir}/bconsole.conf"
             
             $webui_package        = 'bareos-webui'
-            $webui_profile_name   = 'webui'
+            $webui_profile_name   = 'webui-admin'
             $webui_conf_d         = '/etc/bareos-webui'
             $webui_directors_conf = "${webui_conf_d}/directors.ini"
             $webui_user           = 'root'

@@ -60,21 +60,18 @@ class bareos::webui (
     
     if $manage_profile {
 
-        director::profile {$profile_name:
+        bareos::director::profile {$profile_name:
             acls => {
-                'Command'  => [
-                    'status',  'messages', 'show',      'version',  'run',   'rerun',
-                    'cancel',  '.api',     '.bvfs_*',   'list',     'llist', 'use',
-                    'restore', '.jobs',    '.filesets', '.clients',
-                ],
-                'Job'      => '*all*',
-                'Schedule' => '*all*',
-                'Catalog'  => '*all*',
-                'Pool'     => '*all*',
-                'Storage'  => '*all*',
-                'Client'   => '*all*',
-                'FileSet'  => '*all*',
-                'Where'    => '*all*'
+                'Command'        => ['!.bvfs_clear_cache', '!.exit', '!.sql', '!configure', '!create', '!delete', '!purge', '!sqlquery', '!umount', '!unmount', '*all*'],
+                'Job'            => '*all*',
+                'Schedule'       => '*all*',
+                'Catalog'        => '*all*',
+                'Pool'           => '*all*',
+                'Storage'        => '*all*',
+                'Client'         => '*all*',
+                'FileSet'        => '*all*',
+                'Where'          => '*all*',
+                'Plugin Options' => '*all*'
             }
         }
     
