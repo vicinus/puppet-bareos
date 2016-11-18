@@ -4,6 +4,7 @@ define bareos::webui::director (
     $director_name = $title,
     $enabled       = true,
     $port          = $bareos::params::director_port,
+    $catalog       = undef,
 ) {
 
     include bareos::params

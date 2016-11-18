@@ -2,4 +2,7 @@
 enabled = "<%= @enabled ? 'yes' : 'no' %>"
 diraddress = "<%= @address %>"
 dirport = <%= @port %>
+<%- if defined?(@catalog) -%>
+catalog = "<%= @catalog %>"
+<%- end -%>
 
