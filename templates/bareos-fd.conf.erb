@@ -9,5 +9,19 @@ FileDaemon {
   <%- @options.each do |(name, value)| -%>
   <%= name %> = <%= value %>
   <%- end -%>
+  <% if @pki_signatures -%>
+# Enable Data Signing
+  PKI Signatures = Yes
+  <% end -%>
+  <% if @pki_encryption -%>
+# Enable Data Encryption
+  PKI Encryption = Yes
+  <% end -%>
+  <% if @pki_signatures or $pki_encryption -%>
+# Public and Private Keys
+  PKI Keypair = "<%= @pki_keypair %>"
+  # ONLY the Public Key
+  PKI Master Key = "<%= @pki_master_key %>"
+  <% end -%>
 }
 

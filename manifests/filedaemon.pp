@@ -14,6 +14,10 @@ class bareos::filedaemon (
     $conf              = $bareos::params::filedaemon_conf,
     $package_name      = $bareos::params::filedaemon_package,
     $service_name      = $bareos::params::filedaemon_service,
+    $pki_signatures    = false,
+    $pki_encryption    = false,
+    $pki_keypair       = "/etc/bareos/${fqdn}.pem",
+    $pki_master_key    = "/etc/bareos/master.cert",
 ) inherits bareos::params {
 
     include bareos
