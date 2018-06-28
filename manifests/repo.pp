@@ -36,6 +36,8 @@ class bareos::repo (
             }
         }
         
+    } else {
+      $require = undef
     }
 
 }
