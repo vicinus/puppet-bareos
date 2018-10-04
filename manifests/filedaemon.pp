@@ -14,6 +14,7 @@ class bareos::filedaemon (
     $conf              = $bareos::params::filedaemon_conf,
     $package_name      = $bareos::params::filedaemon_package,
     $service_name      = $bareos::params::filedaemon_service,
+    $service_provider  = undef,
     $pki_signatures    = false,
     $pki_encryption    = false,
     $pki_keypair       = "/etc/bareos/${fqdn}.pem",
@@ -34,6 +35,7 @@ class bareos::filedaemon (
     
     service {$service_name:
         ensure => running,
+        provider => $service_provider,
     }
     
     concat {$conf:
