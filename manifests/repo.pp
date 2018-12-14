@@ -23,6 +23,7 @@ class bareos::repo (
                   include => {'deb' => true},
                   repos => '/',
                   key => '0143857D9CE8C2D182FE2631F93C028C093BFBA2',
+                  release => '',
                 }
             
                 ->
