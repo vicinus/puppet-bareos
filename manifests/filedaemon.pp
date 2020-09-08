@@ -55,6 +55,7 @@ class bareos::filedaemon (
     
     bareos::filedaemon::director {$director_name:
         password => $director_password,
+        options => $options,
     }
     
     if $default_messages {
